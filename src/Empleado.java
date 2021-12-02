@@ -42,6 +42,50 @@ public class Empleado extends Persona{
         }
     }
 
+    public boolean altaFamiliar(Familiar familiar){
+        if(familiar.isMayorDeEdad()){
+            if(mayoresDeEdad(0) < 2){
+                listaFamiliares.add(familiar);
+                return true;
+            }
+        }
+        else{
+            if(menoresDeEdad(0) < 4){
+                listaFamiliares.add(familiar);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int mayoresDeEdad(int pos){
+        if(pos == listaFamiliares.size()){
+            return 0;
+        }
+        else{
+            if(listaFamiliares.get(pos).isMayorDeEdad()){
+                return 1 + mayoresDeEdad(pos+1);
+            }
+            else{
+                return mayoresDeEdad(pos+1);
+            }
+        }
+    }
+
+    public int menoresDeEdad(int pos){
+        if(pos == listaFamiliares.size()){
+            return 0;
+        }
+        else{
+            if(!listaFamiliares.get(pos).isMayorDeEdad()){
+                return 1 + menoresDeEdad(pos+1);
+            }
+            else{
+                return menoresDeEdad(pos+1);
+            }
+        }
+    }
+
 
 
     public Empleado(int id, String nombre, String apellido, int edad, Empresa empresa) {
