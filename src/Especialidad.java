@@ -28,31 +28,43 @@ public class Especialidad {
     }
 
     public boolean existeEspecialidad(Especialidad especialidad, int pos){
-        if(pos < 0) return false;
-
-        if(listaEspecialidades.get(pos-1).equals(especialidad)) return true;
-
-        return existeEspecialidad(especialidad, pos - 1);
+        if(pos >= listaEspecialidades.size()) {
+            return false;
+        }
+        else if(listaEspecialidades.get(pos).getId() == especialidad.getId()){
+            return true;
+        }
+        else{
+            return existeEspecialidad(especialidad, pos + 1);
+        }
     }
 
     public Especialidad buscarEspecialidad(Especialidad pEspecialidad, int pos){
-        if(pos < 0 || listaEspecialidades.size() < pos) return null;
-
-        if(listaEspecialidades.get(pos).getId() == pEspecialidad.getId()) return listaEspecialidades.get(pos);
-
-        return buscarEspecialidad(pEspecialidad, pos - 1);
+        if(pos >= listaEspecialidades.size()) {
+            return null;
+        }
+        else if(listaEspecialidades.get(pos).getId() == pEspecialidad.getId()){
+            return listaEspecialidades.get(pos);
+        }
+        else{
+            return buscarEspecialidad(pEspecialidad, pos + 1);
+        }
     }
 
-    public int buscarIndiceEspecialidad(Especialidad pEspecialidad){
-        for(Especialidad especialidad : this.listaEspecialidades){
-            if(especialidad.getId() == pEspecialidad.getId())
-                return this.listaEspecialidades.indexOf(pEspecialidad);
+    public int buscarIndiceEspecialidad(Especialidad pEspecialidad, int pos){
+        if(pos >= listaEspecialidades.size()) {
+            return -1;
         }
-        return -1;
+        else if(listaEspecialidades.get(pos).getId() == pEspecialidad.getId()){
+            return pos;
+        }
+        else{
+            return buscarIndiceEspecialidad(pEspecialidad, pos + 1);
+        }
     }
 
     public boolean altaEspecialidad(Especialidad pEspecialidad){
-        if(!existeEspecialidad(pEspecialidad, listaEspecialidades.size())){
+        if(!existeEspecialidad(pEspecialidad, 0)){
             listaEspecialidades.add(pEspecialidad);
             return true;
         }
@@ -68,7 +80,7 @@ public class Especialidad {
     }
 
     public boolean modificarEspecialidad(Especialidad pEspecialidad){
-        int esp = buscarIndiceEspecialidad(pEspecialidad);
+        int esp = buscarIndiceEspecialidad(pEspecialidad, 0);
         if(esp > 0){
             listaEspecialidades.set(esp, pEspecialidad);
             return true;
