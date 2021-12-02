@@ -35,20 +35,32 @@ public class Empresa {
     }
 
 
-    public boolean buscarEmpresa(Empresa empresa, int pos){ //Buscar Recursivo
-        if(pos == -1){
+    public boolean existeEmpresa(Empresa empresa, int pos){ //Buscar Recursivo
+        if(pos >= listaEmpresas.size()){
             return false;
         }
-        else if(listaEmpresas.get(pos-1).equals(empresa)){
+        else if(listaEmpresas.get(pos).equals(empresa)){
             return true;
         }
         else{
-            return buscarEmpresa(empresa, pos-1);
+            return existeEmpresa(empresa, pos+1);
+        }
+    }
+
+    public Empresa buscarEmpresa(Empresa empresa, int pos){ //Buscar Recursivo
+        if(pos >= listaEmpresas.size()){
+            return null;
+        }
+        else if(listaEmpresas.get(pos).equals(empresa)){
+            return listaEmpresas.get(pos);
+        }
+        else{
+            return buscarEmpresa(empresa, pos+1);
         }
     }
 
     public boolean altaEmpresa(Empresa pEmpresa){
-        if(!buscarEmpresa(pEmpresa, listaEmpresas.size())){
+        if(!existeEmpresa(pEmpresa, 0)){
             listaEmpresas.add(pEmpresa);
             return true;
         }

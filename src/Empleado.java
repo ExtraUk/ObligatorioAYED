@@ -21,20 +21,32 @@ public class Empleado extends Persona{
     }
 
 
-    public boolean buscarEmpleado(Empleado empleado, int pos){ //Buscar empleado recursivo
-        if(pos == -1){
+    public boolean existeEmpleado(Empleado empleado, int pos){ //Existe empleado recursivo
+        if(pos >= listaEmpleados.size()){
             return false;
         }
-        else if(listaEmpleados.get(pos-1).equals(empleado)){
+        else if(listaEmpleados.get(pos).equals(empleado)){
             return true;
         }
         else{
-            return buscarEmpleado(empleado, pos-1);
+            return existeEmpleado(empleado, pos+1);
+        }
+    }
+
+    public Empleado buscarEmpleado(Empleado empleado, int pos){ //Buscar empleado recursivo
+        if(pos >= listaEmpleados.size()){
+            return null;
+        }
+        else if(listaEmpleados.get(pos).equals(empleado)){
+            return listaEmpleados.get(pos);
+        }
+        else{
+            return buscarEmpleado(empleado, pos+1);
         }
     }
 
     public boolean altaEmpleado(Empleado pEmpleado){
-        if(!buscarEmpleado(pEmpleado, listaEmpleados.size())){
+        if(!existeEmpleado(pEmpleado, 0)){
             listaEmpleados.add(pEmpleado);
             return true;
         }

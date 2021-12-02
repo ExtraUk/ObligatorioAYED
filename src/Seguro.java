@@ -34,21 +34,33 @@ public class Seguro {
         this.listaEspecialistas = listaEspecialistas;
     }
 
-    public boolean buscarSeguro(Seguro seguro, int pos){
-        if(pos == -1){
+    public boolean existeSeguro(Seguro seguro, int pos){ //Existe Seguro recursivo
+        if(pos >= listaSeguros.size()){
             return false;
         }
-        else if(listaSeguros.get(pos-1).equals(seguro)){
+        else if(listaSeguros.get(pos).equals(seguro)){
             return true;
         }
         else{
-            return buscarSeguro(seguro, pos-1);
+            return existeSeguro(seguro, pos+1);
+        }
+    }
+
+    public Seguro buscarSeguro(Seguro seguro, int pos){ //Existe Seguro recursivo
+        if(pos >= listaSeguros.size()){
+            return null;
+        }
+        else if(listaSeguros.get(pos).equals(seguro)){
+            return listaSeguros.get(pos);
+        }
+        else{
+            return buscarSeguro(seguro, pos+1);
         }
     }
 
 
     public boolean altaSeguro(Seguro pSeguro){
-        if(!buscarSeguro(pSeguro, listaSeguros.size())){
+        if(!existeSeguro(pSeguro, 0)){
             listaSeguros.add(pSeguro);
             return true;
         }
