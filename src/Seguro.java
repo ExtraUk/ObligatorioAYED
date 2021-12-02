@@ -6,6 +6,8 @@ public class Seguro {
     private int topeVisitasMensuales;
     private List<Especialista> listaEspecialistas;
 
+    private static List<Seguro> listaSeguros;
+
     public int getId() {
         return id;
     }
@@ -29,6 +31,29 @@ public class Seguro {
     }
     public void setListaEspecialistas(List<Especialista> listaEspecialistas) {
         this.listaEspecialistas = listaEspecialistas;
+    }
+
+    public boolean buscarSeguro(Seguro seguro, int pos){
+        if(pos == -1){
+            return false;
+        }
+        else if(listaSeguros.get(pos-1).equals(seguro)){
+            return true;
+        }
+        else{
+            return buscarSeguro(seguro, pos-1);
+        }
+    }
+
+
+    public boolean altaSeguro(Seguro pSeguro){
+        if(!buscarSeguro(pSeguro, listaSeguros.size())){
+            listaSeguros.add(pSeguro);
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public Seguro(int id, String tipo, int topeVisitasMensuales) {
