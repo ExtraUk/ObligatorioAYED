@@ -1,4 +1,4 @@
-public class Familiar {
+public class Familiar extends Persona{
     private Empleado empleadoACargo;
     private boolean mayorDeEdad;
 
@@ -15,8 +15,10 @@ public class Familiar {
         this.mayorDeEdad = mayorDeEdad;
     }
 
-    public Familiar(Empleado empleadoACargo, boolean mayor) {
+    public Familiar(int id, String nombre, String apellido, int edad, Empleado empleadoACargo, boolean mayor) {
+        super(id, nombre, apellido, edad);
         this.empleadoACargo = empleadoACargo;
         this.mayorDeEdad = mayor;
     }
+
 }

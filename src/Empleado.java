@@ -7,6 +7,9 @@ public class Empleado extends Persona{
 
     private static List<Empleado> listaEmpleados = new ArrayList<Empleado>();
 
+    public List<Empleado> getListaEmpleados(){
+        return listaEmpleados;
+    }
     public Empresa getEmpresa() {
         return empresa;
     }
@@ -33,6 +36,38 @@ public class Empleado extends Persona{
         }
     }
 
+    public boolean esFamiliar(Familiar pFamiliar) {
+        for(Familiar familiar : this.listaFamiliares){
+            if(pFamiliar.getId() == familiar.getId())
+                return true;
+        }
+        return false;
+    }
+
+    public Familiar buscarFamiliar(Familiar pFamiliar){
+        for(Familiar familiar : this.listaFamiliares){
+            if(pFamiliar.getId() == familiar.getId())
+                return familiar;
+        }
+        return null;
+    }
+
+    public int buscarIndiceFamiliar(Familiar pFamiliar){
+        for(Familiar familiar : this.listaFamiliares){
+            if(pFamiliar.getId() == familiar.getId())
+                return this.listaFamiliares.indexOf(pFamiliar);
+        }
+        return -1;
+    }
+
+    public int buscarIndiceEmpleado(Empleado pEmpleado){
+        for(Empleado empleado : this.getListaEmpleados()){
+            if(empleado.getId() == pEmpleado.getId())
+                return this.getListaEmpleados().indexOf(pEmpleado);
+        }
+        return -1;
+    }
+
     public Empleado buscarEmpleado(Empleado empleado, int pos){ //Buscar empleado recursivo
         if(pos >= listaEmpleados.size()){
             return null;
@@ -55,6 +90,23 @@ public class Empleado extends Persona{
         }
     }
 
+    public boolean bajaEmpleado(Empleado pEmpleado){
+        if(!existeEmpleado(pEmpleado, listaEmpleados.size())){
+            listaEmpleados.remove(pEmpleado);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean modificarEmpleado(Empleado pEmpleado){
+        int emp = buscarIndiceEmpleado(pEmpleado);
+        if(emp > 0){
+            listaEmpleados.set(emp, pEmpleado);
+            return true;
+        }
+        return false;
+    }
+
     public boolean altaFamiliar(Familiar familiar){
         if(familiar.isMayorDeEdad()){
             if(mayoresDeEdad(0) < 2){
@@ -71,6 +123,23 @@ public class Empleado extends Persona{
         return false;
     }
 
+    public boolean bajaFamiliar(Familiar pFamiliar){
+        if(esFamiliar(pFamiliar)){
+               Familiar fam = this.buscarFamiliar(pFamiliar);
+               this.listaFamiliares.remove(fam);
+               return true;
+        }
+        return false;
+    }
+
+    public boolean modificarFamiliar(Familiar pFamiliar){
+        if(esFamiliar(pFamiliar)){
+            int fam = this.buscarIndiceFamiliar(pFamiliar);
+            this.listaFamiliares.set(fam, pFamiliar);
+            return true;
+        }
+        return false;
+    }
 
     public int mayoresDeEdad(int pos){
         if(pos == listaFamiliares.size()){
