@@ -7,6 +7,14 @@ public class Especialidad {
 
     private static List<Especialidad> listaEspecialidades = new ArrayList<Especialidad>();
 
+    public Especialidad() {
+
+    }
+
+    public Especialidad(int pId) {
+        this.id = pId;
+    }
+
     public List<Especialidad> getListaEspecialidades(){
         return listaEspecialidades;
     }
@@ -28,8 +36,14 @@ public class Especialidad {
         this.nombre = nombre;
     }
 
+    public boolean existeEspecialidad(Especialidad especialidad){
+        return this.existeEspecialidad(especialidad, listaEspecialidades.size());
+    }
+
     public boolean existeEspecialidad(Especialidad especialidad, int pos){
-        if(pos >= listaEspecialidades.size()) {
+        if(listaEspecialidades.size() == 0) return false;
+
+        if(pos > listaEspecialidades.size() || pos < 0) {
             return false;
         }
         else if(listaEspecialidades.get(pos).getId() == especialidad.getId()){
@@ -41,7 +55,7 @@ public class Especialidad {
     }
 
     public Especialidad buscarEspecialidad(Especialidad pEspecialidad, int pos){
-        if(pos >= listaEspecialidades.size()) {
+        if(pos > listaEspecialidades.size()) {
             return null;
         }
         else if(listaEspecialidades.get(pos).getId() == pEspecialidad.getId()){
@@ -57,7 +71,7 @@ public class Especialidad {
             return -1;
         }
         else if(listaEspecialidades.get(pos).getId() == pEspecialidad.getId()){
-            return pos;
+            return pos-1;
         }
         else{
             return buscarIndiceEspecialidad(pEspecialidad, pos + 1);
@@ -81,7 +95,7 @@ public class Especialidad {
     }
 
     public boolean modificarEspecialidad(Especialidad pEspecialidad){
-        int esp = buscarIndiceEspecialidad(pEspecialidad, 0);
+        int esp = buscarIndiceEspecialidad(pEspecialidad, listaEspecialidades.size());
         if(esp > 0){
             listaEspecialidades.set(esp, pEspecialidad);
             return true;
