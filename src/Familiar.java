@@ -1,12 +1,12 @@
 public class Familiar extends Persona{
-    private Empleado empleadoACargo;
+    private Usuario usuarioACargo;
     private boolean mayorDeEdad;
 
-    public Empleado getEmpleadoACargo() {
-        return empleadoACargo;
+    public Usuario getEmpleadoACargo() {
+        return usuarioACargo;
     }
-    public void setEmpleadoACargo(Empleado empleadoACargo) {
-        this.empleadoACargo = empleadoACargo;
+    public void setEmpleadoACargo(Usuario usuarioACargo) {
+        this.usuarioACargo = usuarioACargo;
     }
     public boolean isMayorDeEdad() {
         return mayorDeEdad;
@@ -15,9 +15,9 @@ public class Familiar extends Persona{
         this.mayorDeEdad = mayorDeEdad;
     }
 
-    public Familiar(int id, String nombre, String apellido, int edad, Empleado empleadoACargo, boolean mayor) {
+    public Familiar(int id, String nombre, String apellido, int edad, Usuario usuarioACargo, boolean mayor) {
         super(id, nombre, apellido, edad);
-        this.empleadoACargo = empleadoACargo;
+        this.usuarioACargo = usuarioACargo;
         this.mayorDeEdad = mayor;
     }
 

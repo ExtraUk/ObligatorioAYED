@@ -4,7 +4,7 @@ import java.util.List;
 public class Empresa {
     private int id;
     private String nombre;
-    private List<Empleado> listaEmpleados;
+    private List<Usuario> listaUsuarios;
     private List<Seguro> listaSeguros;
 
     private static List<Empresa> listaEmpresas = new ArrayList<Empresa>();
@@ -21,11 +21,11 @@ public class Empresa {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public List<Empleado> getListaEmpleados() {
-        return listaEmpleados;
+    public List<Usuario> getListaEmpleados() {
+        return listaUsuarios;
     }
-    public void setListaEmpleados(List<Empleado> listaEmpleados) {
-        this.listaEmpleados = listaEmpleados;
+    public void setListaEmpleados(List<Usuario> listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
     }
     public List<Seguro> getListaSeguros() {
         return listaSeguros;
