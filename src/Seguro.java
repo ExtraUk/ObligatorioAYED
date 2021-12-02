@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Seguro {
@@ -6,7 +7,7 @@ public class Seguro {
     private int topeVisitasMensuales;
     private List<Especialista> listaEspecialistas;
 
-    private static List<Seguro> listaSeguros;
+    private static List<Seguro> listaSeguros = new ArrayList<Seguro>();
 
     public int getId() {
         return id;

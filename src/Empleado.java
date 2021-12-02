@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Empleado extends Persona{
     private Empresa empresa;
     private List<Familiar> listaFamiliares;
 
-    private static List<Empleado> listaEmpleados;
+    private static List<Empleado> listaEmpleados = new ArrayList<Empleado>();
 
     public Empresa getEmpresa() {
         return empresa;
@@ -57,6 +58,7 @@ public class Empleado extends Persona{
         }
         return false;
     }
+
 
     public int mayoresDeEdad(int pos){
         if(pos == listaFamiliares.size()){
