@@ -79,7 +79,7 @@ public class Empresa {
     }
 
     public boolean bajaEmpresa(Empresa pEmpresa){
-        if(existeEmpresa(pEmpresa, listaEmpresas.size()){
+        if(existeEmpresa(pEmpresa, listaEmpresas.size())){
             listaEmpresas.remove(pEmpresa);
             return true;
         }
