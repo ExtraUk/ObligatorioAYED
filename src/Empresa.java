@@ -39,7 +39,7 @@ public class Empresa {
         if(pos >= listaEmpresas.size()){
             return false;
         }
-        else if(listaEmpresas.get(pos).equals(empresa)){
+        else if(listaEmpresas.get(pos).getId() == empresa.getId()){
             return true;
         }
         else{
@@ -51,7 +51,7 @@ public class Empresa {
         if(pos >= listaEmpresas.size()){
             return null;
         }
-        else if(listaEmpresas.get(pos).equals(empresa)){
+        else if(listaEmpresas.get(pos).getId() == empresa.getId()){
             return listaEmpresas.get(pos);
         }
         else{

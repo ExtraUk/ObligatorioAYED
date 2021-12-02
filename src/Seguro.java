@@ -38,7 +38,7 @@ public class Seguro {
         if(pos >= listaSeguros.size()){
             return false;
         }
-        else if(listaSeguros.get(pos).equals(seguro)){
+        else if(listaSeguros.get(pos).getId() == seguro.getId()){
             return true;
         }
         else{
@@ -50,7 +50,7 @@ public class Seguro {
         if(pos >= listaSeguros.size()){
             return null;
         }
-        else if(listaSeguros.get(pos).equals(seguro)){
+        else if(listaSeguros.get(pos).getId() == seguro.getId()){
             return listaSeguros.get(pos);
         }
         else{
