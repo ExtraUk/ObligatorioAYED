@@ -107,7 +107,7 @@ public class Usuario extends Persona{
     }
 
     public boolean bajaUsuario(Usuario pUsuario){
-        if(!existeUsuario(pUsuario, listaUsuarios.size())){
+        if(existeUsuario(pUsuario, listaUsuarios.size())){
             listaUsuarios.remove(pUsuario);
             return true;
         }

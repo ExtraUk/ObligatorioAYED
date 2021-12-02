@@ -59,6 +59,15 @@ public class Empresa {
         }
     }
 
+    public int buscarIndiceEmpresa(Empresa empresa, int pos){
+        if(pos < 0 || listaEmpresas.size() < pos) return -1;
+
+        if(listaEmpresas.get(pos).getId() == empresa.getId())
+            return listaEmpresas.indexOf(pos);
+
+        return buscarIndiceEmpresa(empresa, pos - 1);
+    }
+
     public boolean altaEmpresa(Empresa pEmpresa){
         if(!existeEmpresa(pEmpresa, 0)){
             listaEmpresas.add(pEmpresa);
@@ -69,7 +78,22 @@ public class Empresa {
         }
     }
 
+    public boolean bajaEmpresa(Empresa pEmpresa){
+        if(existeEmpresa(pEmpresa, listaEmpresas.size()){
+            listaEmpresas.remove(pEmpresa);
+            return true;
+        }
+        return false;
+    }
 
+    public boolean modificarEmpresa(Empresa pEmpresa){
+        int empresa = buscarIndiceEmpresa(pEmpresa, listaEmpresas.size());
+        if(empresa > 0){
+            listaEmpresas.set(empresa, pEmpresa);
+            return true;
+        }
+        return false;
+    }
 
     public Empresa(int id, String nombre) {
         this.id = id;

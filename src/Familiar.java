@@ -2,10 +2,10 @@ public class Familiar extends Persona{
     private Usuario usuarioACargo;
     private boolean mayorDeEdad;
 
-    public Usuario getEmpleadoACargo() {
+    public Usuario getUsuarioACargo() {
         return usuarioACargo;
     }
-    public void setEmpleadoACargo(Usuario usuarioACargo) {
+    public void setUsuarioACargo(Usuario usuarioACargo) {
         this.usuarioACargo = usuarioACargo;
     }
     public boolean isMayorDeEdad() {

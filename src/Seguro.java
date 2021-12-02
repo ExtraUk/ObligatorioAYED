@@ -58,6 +58,14 @@ public class Seguro {
         }
     }
 
+    public int buscarIndiceSeguro(Seguro pSeguro, int pos){
+        if(pos < 0 || listaSeguros.size() < pos) return -1;
+
+        if(listaSeguros.get(pos).getId() == pSeguro.getId())
+            return listaSeguros.indexOf(pos);
+
+        return buscarIndiceSeguro(pSeguro, pos - 1);
+    }
 
     public boolean altaSeguro(Seguro pSeguro){
         if(!existeSeguro(pSeguro, 0)){
@@ -67,6 +75,24 @@ public class Seguro {
         else{
             return false;
         }
+    }
+
+    public boolean bajaSeguro(Seguro pSeguro){
+        Seguro seguro = this.buscarSeguro(pSeguro, listaSeguros.size());
+        if(seguro != null){
+            listaSeguros.remove(seguro);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean modificarSeguro(Seguro pSeguro){
+        int indiceSeguro = this.buscarIndiceSeguro(pSeguro, listaSeguros.size());
+        if(indiceSeguro > 0){
+            listaSeguros.set(indiceSeguro, pSeguro);
+            return true;
+        }
+        return false;
     }
 
     public Seguro(int id, String tipo, int topeVisitasMensuales) {
