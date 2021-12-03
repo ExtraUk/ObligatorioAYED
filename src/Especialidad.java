@@ -81,7 +81,7 @@ public class Especialidad {
     }
 
     public boolean altaEspecialidad(Especialidad pEspecialidad){
-        if(!existeEspecialidad(pEspecialidad, listaEspecialidades.size())){
+        if(!existeEspecialidad(pEspecialidad, 0)){
             listaEspecialidades.add(pEspecialidad);
             return true;
         }
