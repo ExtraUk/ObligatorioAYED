@@ -24,7 +24,7 @@ public class Usuario extends Persona{
     }
 
     public boolean existeUsuario(Usuario pUsuario){
-        return this.existeUsuario(pUsuario, listaUsuarios.size());
+        return this.existeUsuario(pUsuario, 0);
     }
 
     public boolean existeUsuario(Usuario usuario, int pos){ //Existe Usuario recursivo
@@ -40,7 +40,7 @@ public class Usuario extends Persona{
     }
 
     public Usuario buscarUsuario(Usuario pUsuario){
-        return this.buscarUsuario(pUsuario, listaUsuarios.size());
+        return this.buscarUsuario(pUsuario, 0);
     }
 
     public Usuario buscarUsuario(Usuario usuario, int pos){ //Buscar Usuario recursivo
@@ -56,7 +56,7 @@ public class Usuario extends Persona{
     }
 
     public int buscarIndiceUsuario(Usuario pUsuario){
-        return this.buscarIndiceUsuario(pUsuario, listaUsuarios.size());
+        return this.buscarIndiceUsuario(pUsuario, 0);
     }
 
     public int buscarIndiceUsuario(Usuario usuario, int pos){ //buscar indice Usuario recursivo
@@ -72,14 +72,14 @@ public class Usuario extends Persona{
     }
 
     public boolean esFamiliar(Familiar pFamiliar){
-        return this.esFamiliar(pFamiliar, listaFamiliares.size());
+        return this.esFamiliar(pFamiliar, 0);
     }
 
     public boolean esFamiliar(Familiar pFamiliar, int pos) {
         if(pos >= listaFamiliares.size()){
             return false;
         }
-        else if(listaFamiliares.get(pos - 1).getId() == pFamiliar.getId()){
+        else if(listaFamiliares.get(pos).getId() == pFamiliar.getId()){
             return true;
         }
         else{
@@ -88,15 +88,15 @@ public class Usuario extends Persona{
     }
 
     public Familiar buscarFamiliar(Familiar pFamiliar){
-        return this.buscarFamiliar(pFamiliar, listaFamiliares.size());
+        return this.buscarFamiliar(pFamiliar, 0);
     }
 
     public Familiar buscarFamiliar(Familiar pFamiliar, int pos){
         if(pos >= listaFamiliares.size()){
             return null;
         }
-        else if(listaFamiliares.get(pos - 1).getId() == pFamiliar.getId()){
-            return listaFamiliares.get(pos - 1);
+        else if(listaFamiliares.get(pos).getId() == pFamiliar.getId()){
+            return listaFamiliares.get(pos);
         }
         else{
             return buscarFamiliar(pFamiliar, pos+1);
@@ -104,14 +104,14 @@ public class Usuario extends Persona{
     }
 
     public int buscarIndiceFamiliar(Familiar pFamiliar){
-        return this.buscarIndiceFamiliar(pFamiliar, listaFamiliares.size());
+        return this.buscarIndiceFamiliar(pFamiliar, 0);
     }
 
     public int buscarIndiceFamiliar(Familiar pFamiliar, int pos){
         if(pos >= listaFamiliares.size()){
             return -1;
         }
-        else if(listaFamiliares.get(pos - 1).getId() == pFamiliar.getId()){
+        else if(listaFamiliares.get(pos).getId() == pFamiliar.getId()){
             return pos;
         }
         else{
@@ -130,7 +130,7 @@ public class Usuario extends Persona{
     }
 
     public boolean bajaUsuario(Usuario pUsuario){
-        if(existeUsuario(pUsuario, listaUsuarios.size())){
+        if(existeUsuario(pUsuario, 0)){
             listaUsuarios.remove(pUsuario);
             return true;
         }
@@ -139,7 +139,7 @@ public class Usuario extends Persona{
 
     public boolean modificarUsuario(Usuario pUsuario){
         int emp = buscarIndiceUsuario(pUsuario, 0);
-        if(emp > 0){
+        if(emp >= 0){
             listaUsuarios.set(emp, pUsuario);
             return true;
         }
@@ -181,7 +181,7 @@ public class Usuario extends Persona{
     }
 
     public int mayoresDeEdad(int pos){
-        if(pos == listaFamiliares.size()){
+        if(pos >= listaFamiliares.size()){
             return 0;
         }
         else{
@@ -195,7 +195,7 @@ public class Usuario extends Persona{
     }
 
     public int menoresDeEdad(int pos){
-        if(pos == listaFamiliares.size()){
+        if(pos >= listaFamiliares.size()){
             return 0;
         }
         else{

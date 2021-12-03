@@ -42,7 +42,7 @@ public class Especialista extends Persona{
         if(pos >= listaEspecialistas.size()){
             return false;
         }
-        else if(listaEspecialistas.get(pos - 1).getId() == especialista.getId()){
+        else if(listaEspecialistas.get(pos).getId() == especialista.getId()){
             return true;
         }
         else{
@@ -54,8 +54,8 @@ public class Especialista extends Persona{
         if(pos >= listaEspecialistas.size()){
             return null;
         }
-        else if(listaEspecialistas.get(pos - 1).getId() == especialista.getId()){
-            return listaEspecialistas.get(pos - 1);
+        else if(listaEspecialistas.get(pos).getId() == especialista.getId()){
+            return listaEspecialistas.get(pos);
         }
         else{
             return buscarEspecialista(especialista, pos+1);
@@ -66,7 +66,7 @@ public class Especialista extends Persona{
         if(pos >= listaEspecialistas.size()){
             return -1;
         }
-        else if(listaEspecialistas.get(pos - 1).getId() == especialista.getId()){
+        else if(listaEspecialistas.get(pos).getId() == especialista.getId()){
             return pos;
         }
         else{
@@ -85,7 +85,7 @@ public class Especialista extends Persona{
     }
 
     public boolean bajaEspecialista(Especialista especialista){
-        if(existeEspecialista(especialista, listaEspecialistas.size())){
+        if(existeEspecialista(especialista, 0)){
             listaEspecialistas.remove(especialista);
             return true;
         }
@@ -97,8 +97,13 @@ public class Especialista extends Persona{
     public boolean modificarEspecialista(Especialista especialista){
         if(existeEspecialista(especialista, 0)){
             int pos = buscarIndiceEspecialista(especialista, 0);
-            listaEspecialistas.set(pos, especialista);
-            return true;
+            if(pos >= 0){
+                listaEspecialistas.set(pos, especialista);
+                return true;
+            }
+            else{
+                return false;
+            }
         }
         else{
             return false;

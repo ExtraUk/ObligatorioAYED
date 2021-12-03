@@ -38,7 +38,7 @@ public class Seguro {
         if(pos >= listaSeguros.size()){
             return false;
         }
-        else if(listaSeguros.get(pos - 1).getId() == seguro.getId()){
+        else if(listaSeguros.get(pos).getId() == seguro.getId()){
             return true;
         }
         else{
@@ -47,15 +47,15 @@ public class Seguro {
     }
 
     public boolean existeSeguro(Seguro pSeguro){
-        return this.existeSeguro(pSeguro, listaSeguros.size());
+        return this.existeSeguro(pSeguro, 0);
     }
 
     public Seguro buscarSeguro(Seguro seguro, int pos){ //buscar Seguro recursivo
         if(pos >= listaSeguros.size()){
             return null;
         }
-        else if(listaSeguros.get(pos - 1).getId() == seguro.getId()){
-            return listaSeguros.get(pos - 1);
+        else if(listaSeguros.get(pos).getId() == seguro.getId()){
+            return listaSeguros.get(pos);
         }
         else{
             return buscarSeguro(seguro, pos+1);
@@ -63,16 +63,19 @@ public class Seguro {
     }
 
     public Seguro buscarSeguro(Seguro pSeguro){
-        return this.buscarSeguro(pSeguro, listaSeguros.size());
+        return this.buscarSeguro(pSeguro, 0);
     }
 
     public int buscarIndiceSeguro(Seguro pSeguro, int pos){
-        if(pos < 0 || listaSeguros.size() < pos) return -1;
-
-        if(listaSeguros.get(pos - 1).getId() == pSeguro.getId())
-            return listaSeguros.indexOf(pos - 1);
-
-        return buscarIndiceSeguro(pSeguro, pos - 1);
+        if(pos >= listaSeguros.size()){
+            return -1;
+        }
+        else if(listaSeguros.get(pos).getId() == pSeguro.getId()){
+            return pos;
+        }
+        else{
+            return buscarIndiceSeguro(pSeguro, pos+1);
+        }
     }
 
     public boolean altaSeguro(Seguro pSeguro){
@@ -86,7 +89,7 @@ public class Seguro {
     }
 
     public boolean bajaSeguro(Seguro pSeguro){
-        Seguro seguro = this.buscarSeguro(pSeguro, listaSeguros.size());
+        Seguro seguro = this.buscarSeguro(pSeguro, 0);
         if(seguro != null){
             listaSeguros.remove(seguro);
             return true;
@@ -95,8 +98,8 @@ public class Seguro {
     }
 
     public boolean modificarSeguro(Seguro pSeguro){
-        int indiceSeguro = this.buscarIndiceSeguro(pSeguro, listaSeguros.size());
-        if(indiceSeguro > 0){
+        int indiceSeguro = this.buscarIndiceSeguro(pSeguro, 0);
+        if(indiceSeguro >= 0){
             listaSeguros.set(indiceSeguro, pSeguro);
             return true;
         }
