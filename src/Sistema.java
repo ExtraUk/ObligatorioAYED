@@ -133,7 +133,6 @@ public class Sistema {
 
             switch(opcion){
                 case 1:
-                    //int id, String nombre, String apellido, int edad, Especialidad especialidad
                     System.out.println("Ingrese la id:");
                     int mId = input.nextInt();
                     System.out.println("Ingrese el nombre:");
@@ -145,14 +144,14 @@ public class Sistema {
                     System.out.println("Ingrese la especialidad: ");
                     int mEspecialidadId = input.nextInt();
                     Especialista esp = new Especialista();
-                    /*if(esp.altaEspecialista(new Especialista(mId, mNombre, mEdad, mEspecialidadId)))
+                    if(esp.altaEspecialista(new Especialista(mId, mNombre, mApellido, mEdad, mEspecialidadId)))
 
 
-                    if(esp.altaEspecialidad(new Especialidad(mId, mNombre))) {
+                    if(esp.altaEspecialista(new Especialista(mId, mNombre, mApellido, mEdad, mEspecialidadId))) {
                         System.out.println("Especialidad agregada con éxito!");
                         break;
                     }
-                    System.out.println("No se ha podido agregar el especialista! Compruebe que no existe y pruebe de nuevo");*/
+                    System.out.println("No se ha podido agregar el especialista! Compruebe que no existe y pruebe de nuevo");
                     break;
                 case 2:
                     System.out.println("Lista especialistas:");
