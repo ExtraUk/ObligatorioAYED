@@ -28,6 +28,7 @@ public class Sistema {
                     menuGestionEspecialidades();
                     break;
                 case 2:
+                    menuGestionEspecialistas();
                     break;
                 case 3:
                     break;
@@ -46,7 +47,7 @@ public class Sistema {
             }
         } while(opcion > 0);
     }
-
+    /* Menus */
     public static void menuGestionEspecialidades(){
         Scanner input = new Scanner(System.in);
         int opcion = 1;
@@ -117,10 +118,97 @@ public class Sistema {
         }while(opcion > 0);
     }
 
+    public static void menuGestionEspecialistas(){
+        Scanner input = new Scanner(System.in);
+        int opcion = 1;
+        do {
+            System.out.println("ꕥ Gestión Especialistas ꕥ");
+            System.out.println("1- Agregar especialista");
+            System.out.println("2- Eliminar especialista");
+            System.out.println("3- Modificar especialista");
+            System.out.println("4- Listar especialista");
+            System.out.println("5- Volver");
+
+            opcion = input.nextInt();
+
+            switch(opcion){
+                case 1:
+                    //int id, String nombre, String apellido, int edad, Especialidad especialidad
+                    System.out.println("Ingrese la id:");
+                    int mId = input.nextInt();
+                    System.out.println("Ingrese el nombre:");
+                    String mNombre = input.next();
+                    System.out.println("Ingrese el apellido:");
+                    String mApellido = input.next();
+                    System.out.println("Ingrese la edad: ");
+                    int mEdad = input.nextInt();
+                    System.out.println("Ingrese la especialidad: ");
+                    int mEspecialidadId = input.nextInt();
+                    Especialista esp = new Especialista();
+                    /*if(esp.altaEspecialista(new Especialista(mId, mNombre, mEdad, mEspecialidadId)))
+
+
+                    if(esp.altaEspecialidad(new Especialidad(mId, mNombre))) {
+                        System.out.println("Especialidad agregada con éxito!");
+                        break;
+                    }
+                    System.out.println("No se ha podido agregar el especialista! Compruebe que no existe y pruebe de nuevo");*/
+                    break;
+                case 2:
+                    System.out.println("Lista especialistas:");
+                    listarEspecialistas();
+                    System.out.println("Ingrese la id el especialista a eliminar:");
+                    int mIdB = input.nextInt();
+                    Especialista espeB = new Especialista();
+                   /* if(espeB.bajaEspecialista( new Especialista(mIdB))){
+                        System.out.println("Especialista eliminado con éxito!");
+                        break;
+                    }*/
+                case 3:
+                    System.out.println("Lista especialistas:");
+                    listarEspecialistas();
+                    System.out.println("Ingrese la id del especialista a modificar:");
+                    int mIdM = input.nextInt();
+                    Especialista espeM = new Especialista();
+                    /*if(espeM.existeEspecialista(new Especialista(mIdM))) {
+                        String mNombreM = input.next();
+                        if (espeM.modificarEspecialista(new Especialidad(mIdM, mNombreM))) {
+                            System.out.println("Especialidad modificada con éxito!");
+                            break;
+                        }
+                    }*/
+
+                    System.out.println("¡El especialista no existe!");
+                    break;
+
+                case 4:
+                    System.out.println("Lista especialistas:");
+                    listarEspecialistas();
+                    break;
+                case 5:
+                    opcion = -1;
+                    break;
+                default:
+                    System.out.println("Valor incorrecto");
+                    opcion = 1;
+                    break;
+            }
+        }while(opcion > 0);
+    }
+
+
+    /*Listas */
     public static void listarEspecialidades(){
         Especialidad esp = new Especialidad();
         for(Especialidad especialidad : esp.getListaEspecialidades()){
             System.out.println("Id: " + especialidad.getId() + ". Nombre: " + especialidad.getNombre());
+        }
+    }
+
+    public static void listarEspecialistas(){
+        Especialista espe = new Especialista();
+        for (Especialista especialista: espe.getListaEspecialistas()) {
+            System.out.println("Id: " + especialista.getId() + ". Nombre: " + especialista.getNombre() + ". Apellido: " + especialista.getApellido() + ". Especialidad: " + especialista.getEspecialidad());
         }
     }
 

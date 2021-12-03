@@ -19,6 +19,23 @@ public class Especialista extends Persona{
         this.especialidad = especialidad;
     }
 
+    public Especialista(){
+
+    }
+
+    public static List<Especialista> getListaEspecialistas() {
+        return listaEspecialistas;
+    }
+
+    public static void setListaEspecialistas(List<Especialista> listaEspecialistas) {
+        Especialista.listaEspecialistas = listaEspecialistas;
+    }
+
+    public Especialista(int id, String nombre, String apellido, int edad, int idEspecialidad) {
+        super(id, nombre, apellido, edad);
+        this.especialidad = especialidad;
+    }
+
 
     public boolean existeEspecialista(Especialista especialista, int pos){
         if(pos >= listaEspecialistas.size()){

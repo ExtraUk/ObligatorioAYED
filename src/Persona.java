@@ -39,4 +39,8 @@ public class Persona {
     public Persona(int id) {
         this.id = id;
     }
+
+    public Persona(){
+
+    }
 }
