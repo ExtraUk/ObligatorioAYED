@@ -22,7 +22,7 @@ public class Especialista extends Persona{
     public Especialista(int id, String nombre, String apellido, int edad, int idEspecialidad) {
         super(id, nombre, apellido, edad);
         Especialidad especialidad = new Especialidad();
-        this.especialidad = especialidad.buscarEspecialidadId(idEspecialidad);
+        this.especialidad = especialidad.buscarEspecialidad(new Especialidad(idEspecialidad));
     }
 
     public Especialista(){
@@ -42,7 +42,7 @@ public class Especialista extends Persona{
         if(pos >= listaEspecialistas.size()){
             return false;
         }
-        else if(listaEspecialistas.get(pos).getId() == especialista.getId()){
+        else if(listaEspecialistas.get(pos - 1).getId() == especialista.getId()){
             return true;
         }
         else{

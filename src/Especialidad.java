@@ -54,12 +54,16 @@ public class Especialidad {
         }
     }
 
+    public Especialidad buscarEspecialidad(Especialidad pEspecialidad){
+        return this.buscarEspecialidad(pEspecialidad, listaEspecialidades.size());
+    }
+
     public Especialidad buscarEspecialidad(Especialidad pEspecialidad, int pos){
         if(pos > listaEspecialidades.size()) {
             return null;
         }
-        else if(listaEspecialidades.get(pos).getId() == pEspecialidad.getId()){
-            return listaEspecialidades.get(pos);
+        else if(listaEspecialidades.get(pos - 1).getId() == pEspecialidad.getId()){
+            return listaEspecialidades.get(pos - 1);
         }
         else{
             return buscarEspecialidad(pEspecialidad, pos + 1);
@@ -88,7 +92,8 @@ public class Especialidad {
 
     public boolean bajaEspecialidad(Especialidad pEspecialidad){
         if(existeEspecialidad(pEspecialidad, listaEspecialidades.size())){
-            listaEspecialidades.remove(pEspecialidad);
+            Especialidad esp = this.buscarEspecialidad(pEspecialidad, listaEspecialidades.size());
+            listaEspecialidades.remove(esp);
             return true;
         }
         return false;
