@@ -31,6 +31,7 @@ public class Sistema {
                     menuGestionEspecialistas();
                     break;
                 case 3:
+                    menuGestionSeguros();
                     break;
                 case 4:
                     break;
@@ -47,6 +48,7 @@ public class Sistema {
             }
         } while(opcion > 0);
     }
+
     /* Menus */
     public static void menuGestionEspecialidades(){
         Scanner input = new Scanner(System.in);
@@ -72,7 +74,7 @@ public class Sistema {
                         System.out.println("Especialidad agregada con éxito!");
                         break;
                     }
-                    System.out.println("No se ha podido agregar la especialidad! Compruebe que no existe y pruebe de nuevo");
+                    System.out.println("¡No se ha podido agregar la especialidad! Compruebe que no existe e intente otra vez");
                     break;
                 case 2:
                     System.out.println("Lista especialidades:");
@@ -126,7 +128,7 @@ public class Sistema {
             System.out.println("1- Agregar especialista");
             System.out.println("2- Eliminar especialista");
             System.out.println("3- Modificar especialista");
-            System.out.println("4- Listar especialista");
+            System.out.println("4- Listar especialistas");
             System.out.println("5- Volver");
 
             opcion = input.nextInt();
@@ -149,7 +151,7 @@ public class Sistema {
                         System.out.println("Especialista agregado con éxito!");
                         break;
                     }
-                    System.out.println("No se ha podido agregar el especialista! Compruebe que no existe y pruebe de nuevo");
+                    System.out.println("¡No se ha podido agregar el especialista! Compruebe que no existe e intente otra vez");
                     break;
                 case 2:
                     System.out.println("Lista especialistas:");
@@ -203,6 +205,83 @@ public class Sistema {
         }while(opcion > 0);
     }
 
+    public static void menuGestionSeguros(){
+        Scanner input = new Scanner(System.in);
+        int opcion = 1;
+        do {
+            System.out.println("ꕥ Gestión Seguros ꕥ");
+            System.out.println("1- Agregar seguro");
+            System.out.println("2- Eliminar seguro");
+            System.out.println("3- Modificar seguro");
+            System.out.println("4- Listar seguros");
+            System.out.println("5- Volver");
+
+            opcion = input.nextInt();
+
+            switch(opcion){
+                case 1:
+                    System.out.println("Ingrese la id:");
+                    int mId = input.nextInt();
+                    System.out.println("Ingrese el tipo:");
+                    String mTipo = input.next();
+                    System.out.println("Ingrese el tope visitas mensuales:");
+                    int mtopeVisitasM = input.nextInt();
+
+                    Seguro seg = new Seguro();
+                    if(seg.altaSeguro(new Seguro(mId, mTipo, mtopeVisitasM))) {
+                        System.out.println("Seguro agregado con éxito!");
+                        break;
+                    }
+                    System.out.println("¡No se ha podido agregar el seguro! Compruebe que no existe e intente otra vez");
+                    break;
+                case 2:
+                    System.out.println("Lista seguros:");
+                    listarSeguros();
+                    System.out.println("Ingrese la id del seguro a eliminar:");
+                    int mIdB = input.nextInt();
+                    Seguro segB = new Seguro();
+                    if(segB.bajaSeguro(new Seguro(mIdB))){
+                        System.out.println("Seguro eliminado con éxito!");
+                        break;
+                    }
+                    System.out.println("¡No se ha podido eliminar el seguro! Compruebe que existe e intente otra vez");
+                    break;
+                case 3:
+                    System.out.println("Lista seguros:");
+                    listarSeguros();
+                    System.out.println("Ingrese la id del seguro a modificar:");
+                    int mIdM = input.nextInt();
+                    Seguro segM = new Seguro();
+
+                    System.out.println("Ingrese el nuevo tipo");
+                    String mTipoM = input.next();
+                    System.out.println("Ingrese el nuevo tope de visitas mensual");
+                    int mTopeVM = input.nextInt();
+                    listarEspecialidades();
+                    System.out.println("Ingrese la id del nuevo seguro");
+                    int idEspecialidadM = input.nextInt();
+                    if (segM.modificarSeguro(new Seguro(mIdM, mTipoM,mTopeVM ))) {
+                        System.out.println("Especialidad modificada con éxito!");
+                        break;
+                    }
+
+                    System.out.println("¡El seguro no existe!");
+                    break;
+
+                case 4:
+                    System.out.println("Lista seguros:");
+                    listarSeguros();
+                    break;
+                case 5:
+                    opcion = -1;
+                    break;
+                default:
+                    System.out.println("Valor incorrecto");
+                    opcion = 1;
+                    break;
+            }
+        }while(opcion > 0);
+    }
 
     /*Listas */
     public static void listarEspecialidades(){
@@ -215,8 +294,14 @@ public class Sistema {
     public static void listarEspecialistas(){
         Especialista espe = new Especialista();
         for (Especialista especialista: espe.getListaEspecialistas()) {
-            System.out.println("Id: " + especialista.getId() + ". Nombre: " + especialista.getNombre() + ". Apellido: " + especialista.getApellido() + ". Especialidad: " + especialista.getEspecialidad());
+            System.out.println("Id: " + especialista.getId() + ". Nombre: " + especialista.getNombre() + ". Apellido: " + especialista.getApellido() + ". Especialidad: " + especialista.getEspecialidad().getNombre());
         }
     }
 
+    public static void listarSeguros(){
+        Seguro seg = new Seguro();
+        for (Seguro seguro : seg.getListaSeguros()) {
+            System.out.println("Id: " + seguro.getId() + ". Tipo: " + seguro.getTipo() + ". Tope de visitas mensuales: "+ seguro.getTopeVisitasMensuales());
+        }
+ }
 }
