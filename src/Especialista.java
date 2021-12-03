@@ -19,6 +19,12 @@ public class Especialista extends Persona{
         this.especialidad = especialidad;
     }
 
+    public Especialista(int id, String nombre, String apellido, int edad, int idEspecialidad) {
+        super(id, nombre, apellido, edad);
+        Especialidad especialidad = new Especialidad();
+        this.especialidad = especialidad.buscarEspecialidadId(idEspecialidad);
+    }
+
     public Especialista(){
 
     }
@@ -29,11 +35,6 @@ public class Especialista extends Persona{
 
     public static void setListaEspecialistas(List<Especialista> listaEspecialistas) {
         Especialista.listaEspecialistas = listaEspecialistas;
-    }
-
-    public Especialista(int id, String nombre, String apellido, int edad, int idEspecialidad) {
-        super(id, nombre, apellido, edad);
-        this.especialidad = especialidad;
     }
 
 
@@ -61,9 +62,42 @@ public class Especialista extends Persona{
         }
     }
 
+    public int buscarIndiceEspecialista(Especialista especialista, int pos){
+        if(pos >= listaEspecialistas.size()){
+            return -1;
+        }
+        else if(listaEspecialistas.get(pos).getId() == especialista.getId()){
+            return pos;
+        }
+        else{
+            return buscarIndiceEspecialista(especialista, pos+1);
+        }
+    }
+
     public boolean altaEspecialista(Especialista especialista){
         if(!existeEspecialista(especialista, 0)){
             listaEspecialistas.add(especialista);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean bajaEspecialista(Especialista especialista){
+        if(existeEspecialista(especialista, 0)){
+            listaEspecialistas.remove(especialista);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean modificarEspecialista(Especialista especialista){
+        if(existeEspecialista(especialista, 0)){
+            int pos = buscarIndiceEspecialista(especialista, 0);
+            listaEspecialistas.set(pos, especialista);
             return true;
         }
         else{
