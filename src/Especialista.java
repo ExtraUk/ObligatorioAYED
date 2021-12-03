@@ -54,8 +54,8 @@ public class Especialista extends Persona{
         if(pos >= listaEspecialistas.size()){
             return null;
         }
-        else if(listaEspecialistas.get(pos).getId() == especialista.getId()){
-            return listaEspecialistas.get(pos);
+        else if(listaEspecialistas.get(pos - 1).getId() == especialista.getId()){
+            return listaEspecialistas.get(pos - 1);
         }
         else{
             return buscarEspecialista(especialista, pos+1);
@@ -66,7 +66,7 @@ public class Especialista extends Persona{
         if(pos >= listaEspecialistas.size()){
             return -1;
         }
-        else if(listaEspecialistas.get(pos).getId() == especialista.getId()){
+        else if(listaEspecialistas.get(pos - 1).getId() == especialista.getId()){
             return pos;
         }
         else{
@@ -85,7 +85,7 @@ public class Especialista extends Persona{
     }
 
     public boolean bajaEspecialista(Especialista especialista){
-        if(existeEspecialista(especialista, 0)){
+        if(existeEspecialista(especialista, listaEspecialistas.size())){
             listaEspecialistas.remove(especialista);
             return true;
         }
