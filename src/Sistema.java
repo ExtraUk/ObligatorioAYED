@@ -141,14 +141,12 @@ public class Sistema {
                     String mApellido = input.next();
                     System.out.println("Ingrese la edad: ");
                     int mEdad = input.nextInt();
+                    listarEspecialidades();
                     System.out.println("Ingrese la especialidad: ");
                     int mEspecialidadId = input.nextInt();
                     Especialista esp = new Especialista();
-                    if(esp.altaEspecialista(new Especialista(mId, mNombre, mApellido, mEdad, mEspecialidadId)))
-
-
                     if(esp.altaEspecialista(new Especialista(mId, mNombre, mApellido, mEdad, mEspecialidadId))) {
-                        System.out.println("Especialidad agregada con éxito!");
+                        System.out.println("Especialista agregado con éxito!");
                         break;
                     }
                     System.out.println("No se ha podido agregar el especialista! Compruebe que no existe y pruebe de nuevo");
@@ -159,23 +157,33 @@ public class Sistema {
                     System.out.println("Ingrese la id el especialista a eliminar:");
                     int mIdB = input.nextInt();
                     Especialista espeB = new Especialista();
-                   /* if(espeB.bajaEspecialista( new Especialista(mIdB))){
+                    if(espeB.bajaEspecialista( new Especialista(mIdB))){
                         System.out.println("Especialista eliminado con éxito!");
                         break;
-                    }*/
+                    }
+                    else{
+                        System.out.println("No se pudo eliminar el especialista");
+                        break;
+                    }
                 case 3:
                     System.out.println("Lista especialistas:");
                     listarEspecialistas();
                     System.out.println("Ingrese la id del especialista a modificar:");
                     int mIdM = input.nextInt();
                     Especialista espeM = new Especialista();
-                    /*if(espeM.existeEspecialista(new Especialista(mIdM))) {
-                        String mNombreM = input.next();
-                        if (espeM.modificarEspecialista(new Especialidad(mIdM, mNombreM))) {
-                            System.out.println("Especialidad modificada con éxito!");
-                            break;
-                        }
-                    }*/
+                    System.out.println("Ingrese el nuevo nombre");
+                    String mNombreM = input.next();
+                    System.out.println("Ingrese el nuevo apellido");
+                    String mApellidoM = input.next();
+                    System.out.println("Ingrese la nueva edad");
+                    int mEdadM = input.nextInt();
+                    listarEspecialidades();
+                    System.out.println("Ingrese la id de la nueva especialidad");
+                    int idEspecialidadM = input.nextInt();
+                    if (espeM.modificarEspecialista(new Especialista(mIdM, mNombreM, mApellidoM, mEdadM, idEspecialidadM))) {
+                        System.out.println("Especialidad modificada con éxito!");
+                        break;
+                    }
 
                     System.out.println("¡El especialista no existe!");
                     break;

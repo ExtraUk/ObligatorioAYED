@@ -25,6 +25,10 @@ public class Especialista extends Persona{
         this.especialidad = especialidad.buscarEspecialidad(new Especialidad(idEspecialidad));
     }
 
+    public Especialista(int id){
+        super(id);
+    }
+
     public Especialista(){
 
     }
