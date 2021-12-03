@@ -9,6 +9,10 @@ public class Seguro {
 
     private static List<Seguro> listaSeguros = new ArrayList<Seguro>();
 
+    public static List<Seguro> getListaSeguros() {
+        return listaSeguros;
+    }
+
     public int getId() {
         return id;
     }
