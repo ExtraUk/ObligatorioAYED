@@ -38,7 +38,7 @@ public class Seguro {
         if(pos >= listaSeguros.size()){
             return false;
         }
-        else if(listaSeguros.get(pos).getId() == seguro.getId()){
+        else if(listaSeguros.get(pos - 1).getId() == seguro.getId()){
             return true;
         }
         else{
@@ -46,23 +46,31 @@ public class Seguro {
         }
     }
 
-    public Seguro buscarSeguro(Seguro seguro, int pos){ //Existe Seguro recursivo
+    public boolean existeSeguro(Seguro pSeguro){
+        return this.existeSeguro(pSeguro, listaSeguros.size());
+    }
+
+    public Seguro buscarSeguro(Seguro seguro, int pos){ //buscar Seguro recursivo
         if(pos >= listaSeguros.size()){
             return null;
         }
-        else if(listaSeguros.get(pos).getId() == seguro.getId()){
-            return listaSeguros.get(pos);
+        else if(listaSeguros.get(pos - 1).getId() == seguro.getId()){
+            return listaSeguros.get(pos - 1);
         }
         else{
             return buscarSeguro(seguro, pos+1);
         }
     }
 
+    public Seguro buscarSeguro(Seguro pSeguro){
+        return this.buscarSeguro(pSeguro, listaSeguros.size());
+    }
+
     public int buscarIndiceSeguro(Seguro pSeguro, int pos){
         if(pos < 0 || listaSeguros.size() < pos) return -1;
 
-        if(listaSeguros.get(pos).getId() == pSeguro.getId())
-            return listaSeguros.indexOf(pos);
+        if(listaSeguros.get(pos - 1).getId() == pSeguro.getId())
+            return listaSeguros.indexOf(pos - 1);
 
         return buscarIndiceSeguro(pSeguro, pos - 1);
     }
@@ -99,6 +107,14 @@ public class Seguro {
         this.id = id;
         this.tipo = tipo;
         this.topeVisitasMensuales = topeVisitasMensuales;
+    }
+
+    public Seguro(int pId){
+        this.id = pId;
+    }
+
+    public Seguro(){
+
     }
 
 

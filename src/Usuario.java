@@ -23,6 +23,9 @@ public class Usuario extends Persona{
         this.listaFamiliares = listaFamiliares;
     }
 
+    public boolean existeUsuario(Usuario pUsuario){
+        return this.existeUsuario(pUsuario, listaUsuarios.size());
+    }
 
     public boolean existeUsuario(Usuario usuario, int pos){ //Existe Usuario recursivo
         if(pos >= listaUsuarios.size()){
@@ -34,6 +37,10 @@ public class Usuario extends Persona{
         else{
             return existeUsuario(usuario, pos+1);
         }
+    }
+
+    public Usuario buscarUsuario(Usuario pUsuario){
+        return this.buscarUsuario(pUsuario, listaUsuarios.size());
     }
 
     public Usuario buscarUsuario(Usuario usuario, int pos){ //Buscar Usuario recursivo
@@ -48,7 +55,11 @@ public class Usuario extends Persona{
         }
     }
 
-    public int buscarIndiceUsuario(Usuario usuario, int pos){ //Existe Usuario recursivo
+    public int buscarIndiceUsuario(Usuario pUsuario){
+        return this.buscarIndiceUsuario(pUsuario, listaUsuarios.size());
+    }
+
+    public int buscarIndiceUsuario(Usuario usuario, int pos){ //buscar indice Usuario recursivo
         if(pos >= listaUsuarios.size()){
             return -1;
         }
@@ -60,11 +71,15 @@ public class Usuario extends Persona{
         }
     }
 
+    public boolean esFamiliar(Familiar pFamiliar){
+        return this.esFamiliar(pFamiliar, listaFamiliares.size());
+    }
+
     public boolean esFamiliar(Familiar pFamiliar, int pos) {
         if(pos >= listaFamiliares.size()){
             return false;
         }
-        else if(listaFamiliares.get(pos).getId() == pFamiliar.getId()){
+        else if(listaFamiliares.get(pos - 1).getId() == pFamiliar.getId()){
             return true;
         }
         else{
@@ -72,23 +87,31 @@ public class Usuario extends Persona{
         }
     }
 
+    public Familiar buscarFamiliar(Familiar pFamiliar){
+        return this.buscarFamiliar(pFamiliar, listaFamiliares.size());
+    }
+
     public Familiar buscarFamiliar(Familiar pFamiliar, int pos){
         if(pos >= listaFamiliares.size()){
             return null;
         }
-        else if(listaFamiliares.get(pos).getId() == pFamiliar.getId()){
-            return listaFamiliares.get(pos);
+        else if(listaFamiliares.get(pos - 1).getId() == pFamiliar.getId()){
+            return listaFamiliares.get(pos - 1);
         }
         else{
             return buscarFamiliar(pFamiliar, pos+1);
         }
     }
 
+    public int buscarIndiceFamiliar(Familiar pFamiliar){
+        return this.buscarIndiceFamiliar(pFamiliar, listaFamiliares.size());
+    }
+
     public int buscarIndiceFamiliar(Familiar pFamiliar, int pos){
         if(pos >= listaFamiliares.size()){
             return -1;
         }
-        else if(listaFamiliares.get(pos).getId() == pFamiliar.getId()){
+        else if(listaFamiliares.get(pos - 1).getId() == pFamiliar.getId()){
             return pos;
         }
         else{
