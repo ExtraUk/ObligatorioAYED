@@ -46,7 +46,7 @@ public class Especialidad {
         if(pos > listaEspecialidades.size() || pos < 0) {
             return false;
         }
-        else if(listaEspecialidades.get(pos).getId() == especialidad.getId()){
+        else if(listaEspecialidades.get(pos - 1).getId() == especialidad.getId()){
             return true;
         }
         else{
@@ -67,11 +67,11 @@ public class Especialidad {
     }
 
     public int buscarIndiceEspecialidad(Especialidad pEspecialidad, int pos){
-        if(pos >= listaEspecialidades.size()) {
+        if(pos > listaEspecialidades.size()) {
             return -1;
         }
-        else if(listaEspecialidades.get(pos).getId() == pEspecialidad.getId()){
-            return pos-1;
+        else if(listaEspecialidades.get(pos - 1).getId() == pEspecialidad.getId()){
+            return pos;
         }
         else{
             return buscarIndiceEspecialidad(pEspecialidad, pos + 1);
@@ -79,7 +79,7 @@ public class Especialidad {
     }
 
     public boolean altaEspecialidad(Especialidad pEspecialidad){
-        if(!existeEspecialidad(pEspecialidad, 0)){
+        if(!existeEspecialidad(pEspecialidad, listaEspecialidades.size())){
             listaEspecialidades.add(pEspecialidad);
             return true;
         }
@@ -87,7 +87,7 @@ public class Especialidad {
     }
 
     public boolean bajaEspecialidad(Especialidad pEspecialidad){
-        if(!existeEspecialidad(pEspecialidad, listaEspecialidades.size())){
+        if(existeEspecialidad(pEspecialidad, listaEspecialidades.size())){
             listaEspecialidades.remove(pEspecialidad);
             return true;
         }
@@ -97,7 +97,7 @@ public class Especialidad {
     public boolean modificarEspecialidad(Especialidad pEspecialidad){
         int esp = buscarIndiceEspecialidad(pEspecialidad, listaEspecialidades.size());
         if(esp > 0){
-            listaEspecialidades.set(esp, pEspecialidad);
+            listaEspecialidades.set(esp - 1, pEspecialidad);
             return true;
         }
         return false;
