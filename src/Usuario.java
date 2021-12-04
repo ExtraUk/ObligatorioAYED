@@ -208,10 +208,21 @@ public class Usuario extends Persona{
         }
     }
 
-
-
     public Usuario(int id, String nombre, String apellido, int edad, Empresa empresa) {
         super(id, nombre, apellido, edad);
         this.empresa = empresa;
     }
+    public Usuario(int id, String nombre, String apellido, int edad, int idEmpresa) {
+        super(id, nombre, apellido, edad);
+        this.empresa = empresa.buscarEmpresa(new Empresa(idEmpresa));
+    }
+
+    public Usuario() {
+        super();
+    }
+
+    public Usuario(int id) {
+        super(id);
+    }
+
 }

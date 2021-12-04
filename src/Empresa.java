@@ -34,6 +34,9 @@ public class Empresa {
         this.listaSeguros = listaSeguros;
     }
 
+    public static List<Empresa> getListaEmpresas() {
+        return listaEmpresas;
+    }
 
     public boolean existeEmpresa(Empresa empresa, int pos){ //Buscar Recursivo
         if(pos >= listaEmpresas.size()){
@@ -45,6 +48,10 @@ public class Empresa {
         else{
             return existeEmpresa(empresa, pos+1);
         }
+    }
+
+    public Empresa buscarEmpresa(Empresa pEmpresa){
+        return this.buscarEmpresa(pEmpresa, 0);
     }
 
     public Empresa buscarEmpresa(Empresa empresa, int pos){ //Buscar Recursivo
@@ -82,12 +89,14 @@ public class Empresa {
     }
 
     public boolean bajaEmpresa(Empresa pEmpresa){
-        if(existeEmpresa(pEmpresa, 0)){
-            listaEmpresas.remove(pEmpresa);
+        Empresa empresa = this.buscarEmpresa(pEmpresa, 0);
+        if(empresa != null){
+            listaEmpresas.remove(empresa);
             return true;
         }
         return false;
     }
+
 
     public boolean modificarEmpresa(Empresa pEmpresa){
         int empresa = buscarIndiceEmpresa(pEmpresa, 0);
@@ -101,5 +110,12 @@ public class Empresa {
     public Empresa(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
+    }
+    public Empresa(int id) {
+        this.id = id;
+    }
+
+    public Empresa() {
+
     }
 }

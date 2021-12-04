@@ -34,8 +34,10 @@ public class Sistema {
                     menuGestionSeguros();
                     break;
                 case 4:
+                    menuGestionEmpresas();
                     break;
                 case 5:
+                    menuGestionEmpleadosEmpresa();
                     break;
                 case 6:
                     break;
@@ -252,25 +254,181 @@ public class Sistema {
                     System.out.println("Ingrese la id del seguro a modificar:");
                     int mIdM = input.nextInt();
                     Seguro segM = new Seguro();
-
                     System.out.println("Ingrese el nuevo tipo");
                     String mTipoM = input.next();
                     System.out.println("Ingrese el nuevo tope de visitas mensual");
                     int mTopeVM = input.nextInt();
-                    listarEspecialidades();
-                    System.out.println("Ingrese la id del nuevo seguro");
-                    int idEspecialidadM = input.nextInt();
+                    listarSeguros();
+
                     if (segM.modificarSeguro(new Seguro(mIdM, mTipoM,mTopeVM ))) {
-                        System.out.println("Especialidad modificada con éxito!");
+                        System.out.println("Seguro modificada con éxito!");
                         break;
                     }
 
                     System.out.println("¡El seguro no existe!");
                     break;
 
+
                 case 4:
                     System.out.println("Lista seguros:");
                     listarSeguros();
+                    break;
+                case 5:
+                    opcion = -1;
+                    break;
+                default:
+                    System.out.println("Valor incorrecto");
+                    opcion = 1;
+                    break;
+            }
+        }while(opcion > 0);
+    }
+
+    public static void menuGestionEmpresas(){
+        Scanner input = new Scanner(System.in);
+        int opcion = 1;
+        do {
+            System.out.println("ꕥ Gestión Empresas ꕥ");
+            System.out.println("1- Agregar empresa");
+            System.out.println("2- Eliminar empresa");
+            System.out.println("3- Modificar empresa");
+            System.out.println("4- Listar empresas");
+            System.out.println("5- Volver");
+
+            opcion = input.nextInt();
+
+            switch(opcion){
+                case 1:
+                    System.out.println("Ingrese la id:");
+                    int mId = input.nextInt();
+                    System.out.println("Ingrese el nombre:");
+                    String mNombre = input.next();
+                    Empresa empr = new Empresa();
+                    if(empr.altaEmpresa(new Empresa(mId, mNombre ))){
+                        System.out.println("Empresa agregada con éxito!");
+                        break;
+                    }
+                    System.out.println("¡No se ha podido agregar la empresa! Compruebe que no existe e intente otra vez");
+                    break;
+                case 2:
+                    System.out.println("Lista empresas:");
+                    listarEmpresas();
+                    System.out.println("Ingrese la id de la empresa a eliminar:");
+                    int mIdB = input.nextInt();
+                    Empresa emprB = new Empresa();
+
+                    if(emprB.bajaEmpresa(new Empresa(mIdB))){
+                        System.out.println("Empresa eliminada con éxito!");
+                        break;
+                    }
+                    System.out.println("¡No se ha podido eliminar la empresa! Compruebe que existe e intente otra vez");
+                    break;
+                case 3:
+                    System.out.println("Lista empresas:");
+                    listarEmpresas();
+                    System.out.println("Ingrese la id de la empresa a modificar:");
+                    int mIdM = input.nextInt();
+                    System.out.println("Ingrese el nuevo nombre");
+                    String mNombreM = input.next();
+                    Empresa emprM = new Empresa();
+
+                    if (emprM.modificarEmpresa(new Empresa(mIdM, mNombreM))) {
+                        System.out.println("Empresa modificada con éxito!");
+                        break;
+                    }
+
+                    System.out.println("¡La Empresa no existe!");
+                    break;
+
+                case 4:
+                    System.out.println("Lista empresas:");
+                    listarEmpresas();
+                    break;
+                case 5:
+                    opcion = -1;
+                    break;
+                default:
+                    System.out.println("Valor incorrecto");
+                    opcion = 1;
+                    break;
+            }
+        }while(opcion > 0);
+    }
+
+    public static void menuGestionEmpleadosEmpresa(){
+        Scanner input = new Scanner(System.in);
+        int opcion = 1;
+        do {
+            System.out.println("ꕥ Gestión Empleados de las Empresas ꕥ");
+            System.out.println("1- Agregar empleados a una empresa");
+            System.out.println("2- Eliminar empleados de una empresa");
+            System.out.println("3- Modificar empleados de una empresa");
+            System.out.println("4- Listar empleados de una empresa");
+            System.out.println("5- Volver");
+
+            opcion = input.nextInt();
+
+            switch(opcion){
+                case 1:
+                    System.out.println("Ingrese la id:");
+                    int mId = input.nextInt();
+                    System.out.println("Ingrese el nombre:");
+                    String mNombre = input.next();
+                    System.out.println("Ingrese el apellido:");
+                    String mApellido = input.next();
+                    System.out.println("Ingrese la edad: ");
+                    int mEdad = input.nextInt();
+                    listarEmpresas();
+                    System.out.println("Ingrese la id de la empresa: ");
+                    int mEmpresaId = input.nextInt();
+                    Usuario usu = new Usuario();
+                    if(usu.altaUsuario(new Usuario(mId, mNombre, mApellido, mEdad, mEmpresaId))) {
+                        System.out.println("Empleado agregado con éxito!");
+                        break;
+                    }
+                    System.out.println("¡No se ha podido agregar el empleado! Compruebe que no existe e intente otra vez");
+                    break;
+                case 2:
+                    System.out.println("Lista empleados:");
+                    listarEmpleadosEmpresa();
+                    System.out.println("Ingrese la id del empleado a eliminar:");
+                    int mIdB = input.nextInt();
+                    Usuario usuB = new Usuario();
+
+                    if(usuB.bajaUsuario( new Usuario(mIdB))){
+                        System.out.println("Empleado eliminado con éxito!");
+                        break;
+                    }
+                    else{
+                        System.out.println("No se pudo eliminar el empleado");
+                        break;
+                    }
+                case 3:
+                    System.out.println("Lista empleados:");
+                    listarEmpleadosEmpresa();
+                    System.out.println("Ingrese la id del empleado a modificar:");
+                    int mIdM = input.nextInt();
+                    Usuario usuM = new Usuario();
+                    System.out.println("Ingrese el nuevo nombre");
+                    String mNombreM = input.next();
+                    System.out.println("Ingrese el nuevo apellido");
+                    String mApellidoM = input.next();
+                    System.out.println("Ingrese la nueva edad");
+                    int mEdadM = input.nextInt();
+                    listarEmpresas();
+                    System.out.println("Ingrese la id de la nueva empresa");
+                    int idEmpresaM = input.nextInt();
+                    if (usuM.modificarUsuario(new Usuario(mIdM, mNombreM, mApellidoM, mEdadM, idEmpresaM))) {
+                        System.out.println("Empleado modificado con éxito!");
+                        break;
+                    }
+
+                    System.out.println("¡El empleado no existe!");
+                    break;
+
+                case 4:
+                    System.out.println("Lista empleados:");
+                    listarEmpleadosEmpresa();
                     break;
                 case 5:
                     opcion = -1;
@@ -304,4 +462,18 @@ public class Sistema {
             System.out.println("Id: " + seguro.getId() + ". Tipo: " + seguro.getTipo() + ". Tope de visitas mensuales: "+ seguro.getTopeVisitasMensuales());
         }
  }
+
+    public static void listarEmpresas(){
+        Empresa empr = new Empresa();
+        for (Empresa empresa: empr.getListaEmpresas()) {
+            System.out.println("Id: " + empresa.getId() + ". Nombre: " + empresa.getNombre());
+        }
+    }
+
+    public static void listarEmpleadosEmpresa(){
+        Usuario usu = new Usuario();
+        for (Usuario usuario : usu.getListaUsuarios()) {
+            System.out.println("Id: " + usuario.getId() + ". Nombre: " + usuario.getNombre() + ". Apellido: " + usuario.getApellido() + ". Empresa: " + usuario.getEmpresa().getNombre());
+        }
+    }
 }
