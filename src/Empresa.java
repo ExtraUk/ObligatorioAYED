@@ -97,7 +97,6 @@ public class Empresa {
         return false;
     }
 
-
     public boolean modificarEmpresa(Empresa pEmpresa){
         int empresa = buscarIndiceEmpresa(pEmpresa, 0);
         if(empresa >= 0){
@@ -105,6 +104,22 @@ public class Empresa {
             return true;
         }
         return false;
+    }
+
+    public boolean agregarEmpleado(Usuario pUsuario){
+        for(Empresa empresa : listaEmpresas)
+            for(Usuario usuario : empresa.listaUsuarios)
+                if(pUsuario.getId() == usuario.getId() && !empresa.equals(this))
+                    return false;
+
+        listaUsuarios.add(pUsuario);
+        return true;
+    }
+
+    public boolean eliminarEmpleado(Usuario pUsuario){
+        Usuario elUser = pUsuario.buscarUsuario(pUsuario);
+        listaUsuarios.remove(elUser);
+        return true;
     }
 
     public Empresa(int id, String nombre) {

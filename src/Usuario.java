@@ -4,6 +4,15 @@ import java.util.List;
 public class Usuario extends Persona{
     private Empresa empresa;
     private List<Familiar> listaFamiliares;
+    private Seguro seguro;
+
+    public Seguro getSeguro() {
+        return seguro;
+    }
+
+    public void setSeguro(Seguro seguro) {
+        this.seguro = seguro;
+    }
 
     private static List<Usuario> listaUsuarios = new ArrayList<Usuario>();
 

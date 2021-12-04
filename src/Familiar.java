@@ -2,6 +2,10 @@ public class Familiar extends Persona{
     private Usuario usuarioACargo;
     private boolean mayorDeEdad;
 
+    public Familiar() {
+
+    }
+
     public Usuario getUsuarioACargo() {
         return usuarioACargo;
     }

@@ -1,12 +1,22 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Consulta {
     private int id;
     private Persona persona;
     private Especialista especialista;
     private LocalDateTime fechaHora;
+    private Empresa empresa;
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
 
     private List<Consulta> listaConsultas = new ArrayList<Consulta>();
 
@@ -81,10 +91,58 @@ public class Consulta {
         return buscarIndiceConsulta(pConsulta, pos + 1);
     }
 
+    private int topeVisitasUser(Consulta pConsulta){
+        int maximoUser = 0;
+        for(Seguro seguro : empresa.getListaSeguros()){
+            for(Usuario user : empresa.getListaEmpleados()){
+                if(user.getId() == persona.getId()) {
+                    maximoUser = seguro.getTopeVisitasMensuales();
+                    return maximoUser;
+                }
+            }
+        }
+        return -1;
+    }
+
+    private int consultasDeUnUsuario(Persona pPersona){
+        int nroConsultas = 0;
+        for(Consulta cons : listaConsultas){
+            Usuario user = new Usuario();
+            if(pPersona.getClass().equals(Usuario.class.getClass())) {
+                user = user.buscarUsuario((Usuario) pPersona);
+                if(cons.persona.getId() == user.getId())
+                    nroConsultas++;
+            }
+            if(pPersona.getClass().equals(Familiar.class.getClass())){
+                // me perdi
+            }
+        }
+        return nroConsultas;
+    }
+
     public boolean altaConsulta(Consulta pConsulta){
         if(!existeConsulta(pConsulta)){
-            listaConsultas.add(pConsulta);
-            return true;
+            int maximoUser = topeVisitasUser(pConsulta);
+            if(maximoUser < 1) return false;
+            else {
+                Usuario user = new Usuario();
+                Persona persona = new Persona();
+                if(pConsulta.persona.getClass().equals(Usuario.class.getClass()))
+                    persona = user.buscarUsuario((Usuario)pConsulta.persona);
+                else if(pConsulta.persona.getClass().equals(Familiar.class.getClass()))
+                    persona = user.buscarFamiliar((Familiar) pConsulta.persona);
+                else
+                    return false;
+
+                int qtyConsultas = 0;
+                for (Consulta consulta : listaConsultas){
+
+                }
+
+
+                listaConsultas.add(pConsulta);
+                return true;
+            }
         }
         return false;
     }
