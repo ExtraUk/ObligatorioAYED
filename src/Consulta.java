@@ -104,20 +104,13 @@ public class Consulta {
         return -1;
     }
 
-    private int consultasDeUnUsuario(Persona pPersona){
-        int nroConsultas = 0;
-        for(Consulta cons : listaConsultas){
-            Usuario user = new Usuario();
-            if(pPersona.getClass().equals(Usuario.class.getClass())) {
-                user = user.buscarUsuario((Usuario) pPersona);
-                if(cons.persona.getId() == user.getId())
-                    nroConsultas++;
-            }
-            if(pPersona.getClass().equals(Familiar.class.getClass())){
-                // me perdi
-            }
-        }
-        return nroConsultas;
+    private int esUserOFamiliar(Consulta pConsulta){ // retorna 1 si es usuario, 0 si es familiar o -1 si no es ninguno
+        if(pConsulta.persona.getClass().equals(Usuario.class.getClass()))
+            return 1;
+        else if(pConsulta.persona.getClass().equals(Familiar.class.getClass()))
+            return 0;
+
+        return -1;
     }
 
     public boolean altaConsulta(Consulta pConsulta){
@@ -125,21 +118,60 @@ public class Consulta {
             int maximoUser = topeVisitasUser(pConsulta);
             if(maximoUser < 1) return false;
             else {
-                Usuario user = new Usuario();
-                Persona persona = new Persona();
-                if(pConsulta.persona.getClass().equals(Usuario.class.getClass()))
-                    persona = user.buscarUsuario((Usuario)pConsulta.persona);
-                else if(pConsulta.persona.getClass().equals(Familiar.class.getClass()))
-                    persona = user.buscarFamiliar((Familiar) pConsulta.persona);
-                else
-                    return false;
 
                 int qtyConsultas = 0;
                 for (Consulta consulta : listaConsultas){
-
+                    if(consulta.getFechaHora().getMonth().equals(pConsulta.getFechaHora().getMonth()) && consulta.getFechaHora().getYear() == pConsulta.getFechaHora().getYear()){
+                        switch (esUserOFamiliar(pConsulta)){
+                            case 1:
+                                Usuario user = new Usuario().buscarUsuario((Usuario) pConsulta.persona);
+                                for(Consulta consUsr : user.getListaConsultas()) {
+                                    if (consUsr.persona.getId() == user.getId()) {
+                                        if (consUsr.getFechaHora().getMonth().equals(pConsulta.getFechaHora().getMonth()) && consUsr.getFechaHora().getYear() == pConsulta.getFechaHora().getYear()) {
+                                            qtyConsultas++;
+                                            continue;
+                                        }
+                                    }
+                                    for (Familiar fFam : user.getListaFamiliares()) {
+                                        if (fFam.getId() == pConsulta.persona.getId()) {
+                                            if (consUsr.getFechaHora().getMonth().equals(pConsulta.getFechaHora().getMonth()) && consUsr.getFechaHora().getYear() == pConsulta.getFechaHora().getYear()) {
+                                                qtyConsultas++;
+                                                continue;
+                                            }
+                                        }
+                                    }
+                                }
+                                Usuario userF = new Usuario().buscarUsuario(((Usuario) pConsulta.persona));
+                                if(qtyConsultas > userF.getSeguro().getTopeVisitasMensuales())
+                                    return false;
+                                return true;
+                            case 0:
+                                Familiar fam = new Familiar().buscarFamiliar((Familiar) pConsulta.persona);
+                                Usuario userM = fam.getUsuarioACargo();
+                                for(Consulta consUsrB : userM.getListaConsultas()){
+                                    if(consUsrB.persona.getId() == userM.getId()){
+                                        if(consUsrB.getFechaHora().getMonth().equals(pConsulta.getFechaHora().getMonth()) && consUsrB.getFechaHora().getYear() == pConsulta.getFechaHora().getYear()){
+                                            qtyConsultas++;
+                                            continue;
+                                        }
+                                    }
+                                    for(Familiar fFamB : userM.getListaFamiliares()){
+                                        if(fFamB.getId() == pConsulta.persona.getId()){
+                                            if(consUsrB.getFechaHora().getMonth().equals(pConsulta.getFechaHora().getMonth()) && consUsrB.getFechaHora().getYear() == pConsulta.getFechaHora().getYear()){
+                                                qtyConsultas++;
+                                                continue;
+                                            }
+                                        }
+                                    }
+                                }
+                                if(qtyConsultas > userM.getSeguro().getTopeVisitasMensuales())
+                                    return false;
+                                return true;
+                            case -1:
+                                return false;
+                        }
+                    }
                 }
-
-
                 listaConsultas.add(pConsulta);
                 return true;
             }

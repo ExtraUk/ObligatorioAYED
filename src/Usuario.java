@@ -14,8 +14,12 @@ public class Usuario extends Persona{
         this.seguro = seguro;
     }
 
+    private static List<Consulta> listaConsultas = new ArrayList<Consulta>();
     private static List<Usuario> listaUsuarios = new ArrayList<Usuario>();
 
+    public List<Consulta> getListaConsultas(){
+        return listaConsultas;
+    }
     public List<Usuario> getListaUsuarios(){
         return listaUsuarios;
     }
