@@ -28,7 +28,6 @@ public class Sistema {
         Seguro seguro = new Seguro(1, "Medico Parcial", 10);
         seguro.altaSeguro(seguro);
 
-
     }
 
     public static void mostrarMenuPrincipal(){
@@ -590,13 +589,9 @@ public class Sistema {
                     int mIdEmpresa = input.nextInt();
                     System.out.println("Ingrese la id del especialista:");
                     int mIdEspecialista = input.nextInt();
-                    System.out.println("Ingrese la fecha y hora [dd. MMM. yyyy]:");
-
-
-                    String mFecha = input.nextLine();
-                    DateTimeFormatter dtfmFecha = DateTimeFormatter.ofPattern("dd. MMM. yyyy");
-                    LocalDate fecha = LocalDate.parse(mFecha, dtfmFecha);
-
+                    System.out.println("Ingrese la fecha y hora [dd. MM. yyyy]:");
+                    LocalDate fecha = LocalDate.parse(input.next());
+                    System.out.println(fecha);
                     Consulta con = new Consulta();
                     if(con.altaConsulta(new Consulta(mId, mIdPersona, mIdEspecialista, fecha, mIdEmpresa))){
                         System.out.println("Consulta agregada con éxito!");
