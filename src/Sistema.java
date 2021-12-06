@@ -6,6 +6,21 @@ public class Sistema {
     public static void main(String[] args) {
         // TODO Auto-generated method stub
         mostrarMenuPrincipal();
+
+        //Datos precargados
+        Empresa empresa = new Empresa(1, "SsISRL");
+        empresa.altaEmpresa(empresa);
+
+        Usuario usuario = new Usuario(1,"Juanita","Perez", 22,1 );
+        usuario.altaUsuario(usuario);
+
+        Familiar familiar = new Familiar(2,"Juanita","Perez", 22,1, true);
+        usuario.altaFamiliar(familiar);
+
+        Seguro seguro = new Seguro(1, "Medico Parcial", 10);
+        seguro.altaSeguro(seguro);
+
+
     }
 
     public static void mostrarMenuPrincipal(){
@@ -45,8 +60,12 @@ public class Sistema {
                     menuGestionFamiliaresEmpleados();
                     break;
                 case 7:
+                    menuGestionConsultas();
                     break;
                 case 8:
+                    menuGestionListados();
+                    break;
+                case 9:
                     opcion = -1;
                     break;
                 default:
@@ -528,6 +547,117 @@ public class Sistema {
                 case 4:
                     System.out.println("Lista empleados:");
                     listarEmpleadosEmpresa(0);
+                    break;
+                case 5:
+                    opcion = -1;
+                    break;
+                default:
+                    System.out.println("Valor incorrecto");
+                    opcion = 1;
+                    break;
+            }
+        }while(opcion > 0);
+    }
+
+    public static void menuGestionConsultas(){
+        Scanner input = new Scanner(System.in);
+        int opcion = 1;
+        do {
+            System.out.println("ꕥ Gestión Consultas ꕥ");
+            System.out.println("1- Agregar consulta");
+            System.out.println("2- Eliminar consulta");
+            System.out.println("3- Modificar consulta");
+            System.out.println("4- Listar consultas");
+            System.out.println("5- Volver");
+
+            opcion = input.nextInt();
+
+            switch(opcion){
+                case 1:
+                    System.out.println("Ingrese la id de la consulta:");
+                    int mId = input.nextInt();
+                    System.out.println("Ingrese el tipo:");
+                    String mTipo = input.next();
+                    System.out.println("Ingrese el tope visitas mensuales:");
+                    int mtopeVisitasM = input.nextInt();
+
+                    Seguro seg = new Seguro();
+                    if(seg.altaSeguro(new Seguro(mId, mTipo, mtopeVisitasM))) {
+                        System.out.println("Seguro agregado con éxito!");
+                        break;
+                    }
+                    System.out.println("¡No se ha podido agregar el seguro! Compruebe que no existe e intente otra vez");
+                    break;
+                case 2:
+                    System.out.println("Lista seguros:");
+                    listarSeguros(0);
+                    System.out.println("Ingrese la id del seguro a eliminar:");
+                    int mIdB = input.nextInt();
+                    Seguro segB = new Seguro();
+                    if(segB.bajaSeguro(new Seguro(mIdB))){
+                        System.out.println("Seguro eliminado con éxito!");
+                        break;
+                    }
+                    System.out.println("¡No se ha podido eliminar el seguro! Compruebe que existe e intente otra vez");
+                    break;
+                case 3:
+                    System.out.println("Lista seguros:");
+                    listarSeguros(0);
+                    System.out.println("Ingrese la id del seguro a modificar:");
+                    int mIdM = input.nextInt();
+                    Seguro segM = new Seguro();
+                    System.out.println("Ingrese el nuevo tipo");
+                    String mTipoM = input.next();
+                    System.out.println("Ingrese el nuevo tope de visitas mensual");
+                    int mTopeVM = input.nextInt();
+                    listarSeguros(0);
+
+                    if (segM.modificarSeguro(new Seguro(mIdM, mTipoM,mTopeVM ))) {
+                        System.out.println("Seguro modificada con éxito!");
+                        break;
+                    }
+
+                    System.out.println("¡El seguro no existe!");
+                    break;
+
+
+                case 4:
+                    System.out.println("Lista seguros:");
+                    listarSeguros(0);
+                    break;
+                case 5:
+                    opcion = -1;
+                    break;
+                default:
+                    System.out.println("Valor incorrecto");
+                    opcion = 1;
+                    break;
+            }
+        }while(opcion > 0);
+    }
+
+    public static void menuGestionListados(){
+        Scanner input = new Scanner(System.in);
+        int opcion = 1;
+        do {
+            System.out.println("ꕥ Gestión Listados ꕥ");
+            System.out.println("1- Listar los empleados y sus familiares de una empresa");
+            System.out.println("2- Listar las consultas médicas de un asegurado en un rango de fechas.");
+            System.out.println("3- A partir de un asegurado listar toda la familia.");
+            System.out.println("4- Listar los diferentes tipos de seguros para una empresa y la cantidad de empleados en cada uno");
+            System.out.println("5- Volver");
+
+            opcion = input.nextInt();
+
+            switch(opcion){
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+
+                case 4:
                     break;
                 case 5:
                     opcion = -1;
