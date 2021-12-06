@@ -42,12 +42,19 @@ public class Persona {
             return null;
         }
         else{
+
             if(listaConsultas.get(pos).getFechaHora().isAfter(fecha1) && listaConsultas.get(pos).getFechaHora().isBefore(fecha2)){
                 retorno.add(listaConsultas.get(pos));
             }
             todasLasConsultasEnRangoDeFechas(fecha1, fecha2, pos+1, retorno);
         }
         return retorno;
+    }
+
+    private List<Persona> todaLaFamilia(Persona persona){
+        if(persona.getClass() == Usuario.class){
+            return ((Usuario) persona).getListaFamiliares();
+        }
     }
 
     public Persona(int id, String nombre, String apellido, int edad) {
