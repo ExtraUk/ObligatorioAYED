@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Usuario extends Persona{
     private Empresa empresa;
-    private List<Familiar> listaFamiliares;
+    private List<Familiar> listaFamiliares = new ArrayList<Familiar>();
     private Seguro seguro;
 
     public Seguro getSeguro() {
