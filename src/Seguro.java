@@ -110,6 +110,33 @@ public class Seguro {
         return false;
     }
 
+    //Listar los diferentes tipos de seguro para una empresa y la cantidad de empleados en
+    //cada uno.
+    public void listarSegurosDeEmpresaConQtyUsuariosEnCadaUno(Empresa pEmpresa, int pos){
+        if(pos > pEmpresa.getListaSeguros().size()) return;
+
+        System.out.println("Seguro: " + pEmpresa.getListaSeguros().get(pos).getTipo());
+        for(Usuario usuario : this.usuariosEnUnSeguroEnUnaEmpresa(pEmpresa, pEmpresa.getListaSeguros().get(pos))){
+            System.out.println("Empleado: ");
+            System.out.println("ID: " + usuario.getId() + " Nombre: " + usuario.getNombre() + " Apellido " + usuario.getApellido());
+            if(usuario.getListaFamiliares().size() > 0){
+                System.out.println("\tFamiliares: ");
+                for(Familiar familiar : usuario.getListaFamiliares()){
+                    System.out.println("ID: " + familiar.getId() + " Nombre: " + familiar.getNombre() + " Apellido: " + familiar.getApellido());
+                }
+            }
+        }
+    }
+
+    private List<Usuario> usuariosEnUnSeguroEnUnaEmpresa(Empresa pEmpresa, Seguro pSeguro){
+        List<Usuario> lista = new ArrayList<Usuario>();
+        for(Usuario user : pEmpresa.getListaEmpleados()){
+            if(pSeguro.equals(user.getSeguro()))
+                lista.add(user);
+        }
+        return lista;
+    }
+
     public Seguro(int id, String tipo, int topeVisitasMensuales) {
         this.id = id;
         this.tipo = tipo;
