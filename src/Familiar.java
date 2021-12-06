@@ -47,5 +47,11 @@ public class Familiar extends Persona{
         this.usuarioACargo = usuarioACargo;
         this.mayorDeEdad = mayor;
     }
+    public Familiar(int id, String nombre, String apellido, int edad, int idUsuario, boolean mayor) {
+        super(id, nombre, apellido, edad);
+        Usuario usuario = new Usuario();
+        this.usuarioACargo = usuario.buscarUsuario(new Usuario(idUsuario));
+        this.mayorDeEdad = mayor;
 
+    }
 }
