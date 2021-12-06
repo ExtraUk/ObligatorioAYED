@@ -54,4 +54,8 @@ public class Familiar extends Persona{
         this.mayorDeEdad = mayor;
 
     }
+
+    public Familiar(int id) {
+        super(id);
+    }
 }
