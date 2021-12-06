@@ -46,15 +46,20 @@ public class Persona {
             if(listaConsultas.get(pos).getFechaHora().isAfter(fecha1) && listaConsultas.get(pos).getFechaHora().isBefore(fecha2)){
                 retorno.add(listaConsultas.get(pos));
             }
-            todasLasConsultasEnRangoDeFechas(fecha1, fecha2, pos+1, retorno);
+            retorno.addAll(todasLasConsultasEnRangoDeFechas(fecha1, fecha2, pos+1, retorno));
         }
         return retorno;
     }
 
-    private List<Persona> todaLaFamilia(Persona persona){
-        if(persona.getClass() == Usuario.class){
-            return ((Usuario) persona).getListaFamiliares();
-        }
+    public List<Familiar> todaLaFamilia(Usuario usuario){
+        return usuario.getListaFamiliares();
+    }
+
+    public List<Persona> todaLaFamilia(Familiar familiar){
+        List<Persona> retorno = new ArrayList<Persona>();
+        retorno.add(familiar.getUsuarioACargo());
+        retorno.addAll(familiar.getUsuarioACargo().getListaFamiliares());
+        return retorno;
     }
 
     public Persona(int id, String nombre, String apellido, int edad) {
