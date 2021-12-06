@@ -1,8 +1,13 @@
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Persona {
     private int id;
     private String nombre;
     private String apellido;
     private int edad;
+    private List<Consulta> listaConsultas = new ArrayList<Consulta>();
 
     public int getId() {
         return id;
@@ -28,6 +33,13 @@ public class Persona {
     public void setEdad(int edad) {
         this.edad = edad;
     }
+    public List<Consulta> getListaConsultas(){
+        return listaConsultas;
+    }
+
+   /* private List<Consulta> todasLasConsultasEnRangoDeFechas(LocalDate fecha1, LocalDate fecha2, int pos){
+        if(pos >= listaConsultas)
+    }*/
 
     public Persona(int id, String nombre, String apellido, int edad) {
         this.id = id;

@@ -13,13 +13,8 @@ public class Usuario extends Persona{
     public void setSeguro(Seguro seguro) {
         this.seguro = seguro;
     }
-
-    private static List<Consulta> listaConsultas = new ArrayList<Consulta>();
     private static List<Usuario> listaUsuarios = new ArrayList<Usuario>();
 
-    public List<Consulta> getListaConsultas(){
-        return listaConsultas;
-    }
     public List<Usuario> getListaUsuarios(){
         return listaUsuarios;
     }
@@ -161,13 +156,13 @@ public class Usuario extends Persona{
 
     public boolean altaFamiliar(Familiar familiar){
         if(familiar.isMayorDeEdad()){
-            if(mayoresDeEdad(0) < 2){
+            if(mayoresDeEdad(0) <= 2){
                 listaFamiliares.add(familiar);
                 return true;
             }
         }
         else{
-            if(menoresDeEdad(0) < 4){
+            if(menoresDeEdad(0) <= 4){
                 listaFamiliares.add(familiar);
                 return true;
             }
