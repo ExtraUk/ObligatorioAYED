@@ -20,7 +20,8 @@ public class Sistema {
             System.out.println("4- Gestión Empresas");
             System.out.println("5- Gestión Empleados de las Empresas");
             System.out.println("6- Gestión Familiares de los Empleados");
-            System.out.println("7- Salir");
+            System.out.println("7- Gestión de las Consultas");
+            System.out.println("8- Salir");
 
             opcion = input.nextInt();
 
@@ -41,8 +42,12 @@ public class Sistema {
                     menuGestionEmpleadosEmpresa();
                     break;
                 case 6:
+                    menuGestionFamiliaresEmpleados();
                     break;
                 case 7:
+                    break;
+                case 8:
+                    opcion = -1;
                     break;
                 default:
                     System.out.println("Valor incorrecto!");
@@ -388,6 +393,99 @@ public class Sistema {
                         break;
                     }
                     System.out.println("¡No se ha podido agregar el empleado! Compruebe que no existe e intente otra vez");
+                    break;
+                case 2:
+                    System.out.println("Lista empleados:");
+                    listarEmpleadosEmpresa(0);
+                    System.out.println("Ingrese la id del empleado a eliminar:");
+                    int mIdB = input.nextInt();
+                    Usuario usuB = new Usuario();
+
+                    if(usuB.bajaUsuario( new Usuario(mIdB))){
+                        System.out.println("Empleado eliminado con éxito!");
+                        break;
+                    }
+                    else{
+                        System.out.println("No se pudo eliminar el empleado");
+                        break;
+                    }
+                case 3:
+                    System.out.println("Lista empleados:");
+                    listarEmpleadosEmpresa(0);
+                    System.out.println("Ingrese la id del empleado a modificar:");
+                    int mIdM = input.nextInt();
+                    Usuario usuM = new Usuario();
+                    System.out.println("Ingrese el nuevo nombre");
+                    String mNombreM = input.next();
+                    System.out.println("Ingrese el nuevo apellido");
+                    String mApellidoM = input.next();
+                    System.out.println("Ingrese la nueva edad");
+                    int mEdadM = input.nextInt();
+                    listarEmpresas(0);
+                    System.out.println("Ingrese la id de la nueva empresa");
+                    int idEmpresaM = input.nextInt();
+                    if (usuM.modificarUsuario(new Usuario(mIdM, mNombreM, mApellidoM, mEdadM, idEmpresaM))) {
+                        System.out.println("Empleado modificado con éxito!");
+                        break;
+                    }
+
+                    System.out.println("¡El empleado no existe!");
+                    break;
+
+                case 4:
+                    System.out.println("Lista empleados:");
+                    listarEmpleadosEmpresa(0);
+                    break;
+                case 5:
+                    opcion = -1;
+                    break;
+                default:
+                    System.out.println("Valor incorrecto");
+                    opcion = 1;
+                    break;
+            }
+        }while(opcion > 0);
+    }
+
+    public static void menuGestionFamiliaresEmpleados(){
+        Scanner input = new Scanner(System.in);
+        int opcion = 1;
+        do {
+            System.out.println("ꕥ Gestión Familiares de las Empleados ꕥ");
+            System.out.println("1- Agregar familiares a un empleado");
+            System.out.println("2- Eliminar familiares a un empleado");
+            System.out.println("3- Modificar familiares a un empleado");
+            System.out.println("4- Listar familiares de un empleado");
+            System.out.println("5- Volver");
+
+            opcion = input.nextInt();
+
+            switch(opcion){
+                case 1:
+                    System.out.println("Ingrese la id:");
+                    int mId = input.nextInt();
+                    System.out.println("Ingrese el nombre:");
+                    String mNombre = input.next();
+                    System.out.println("Ingrese el apellido:");
+                    String mApellido = input.next();
+                    System.out.println("Ingrese la edad: ");
+                    int mEdad = input.nextInt();
+                    boolean esMayor;
+                    if (mEdad >= 18) {
+                        esMayor = true;
+
+                    } else {
+                        esMayor = false;
+                    }
+                    System.out.println("Ingrese la id del usuario a Cargo: ");
+                    int mUsuarioId = input.nextInt();
+                    Usuario usu = new Usuario();
+
+                    if(usu.altaFamiliar(new Familiar(mId, mNombre, mApellido, mEdad, mUsuarioId, esMayor ))) {
+                        System.out.println("Familiar agregado con éxito!");
+                        break;
+                    }
+                    System.out.println("¡No se ha podido agregar el familiar! Compruebe que no existe e intente otra vez");
                     break;
                 case 2:
                     System.out.println("Lista empleados:");
