@@ -115,6 +115,7 @@ public class Seguro {
     public void listarSegurosDeEmpresaConQtyUsuariosEnCadaUno(Empresa pEmpresa, int pos){
         if(pos > pEmpresa.getListaSeguros().size()) return;
 
+        System.out.println("Seguro: " + pEmpresa.getListaSeguros().get(pos).getTipo());
         for(Usuario usuario : this.usuariosEnUnSeguroEnUnaEmpresa(pEmpresa, pEmpresa.getListaSeguros().get(pos))){
             System.out.println("Empleado: ");
             System.out.println("ID: " + usuario.getId() + " Nombre: " + usuario.getNombre() + " Apellido " + usuario.getApellido());
