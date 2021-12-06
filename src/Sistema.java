@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Sistema {
@@ -80,7 +81,7 @@ public class Sistema {
                     break;
                 case 2:
                     System.out.println("Lista especialidades:");
-                    listarEspecialidades();
+                    listarEspecialidades(0);
                     System.out.println("Ingrese la id de la especialidad a eliminar:");
                     int mIdB = input.nextInt();
                     Especialidad espB = new Especialidad();
@@ -92,7 +93,7 @@ public class Sistema {
                     break;
                 case 3:
                     System.out.println("Lista especialidades:");
-                    listarEspecialidades();
+                    listarEspecialidades(0);
                     System.out.println("Ingrese la id de la especialidad a modificar:");
                     int mIdM = input.nextInt();
                     Especialidad espM = new Especialidad();
@@ -109,7 +110,7 @@ public class Sistema {
 
                 case 4:
                     System.out.println("Lista especialidades:");
-                    listarEspecialidades();
+                    listarEspecialidades(0);
                     break;
                 case 5:
                     opcion = -1;
@@ -145,7 +146,7 @@ public class Sistema {
                     String mApellido = input.next();
                     System.out.println("Ingrese la edad: ");
                     int mEdad = input.nextInt();
-                    listarEspecialidades();
+                    listarEspecialidades(0);
                     System.out.println("Ingrese la especialidad: ");
                     int mEspecialidadId = input.nextInt();
                     Especialista esp = new Especialista();
@@ -157,7 +158,7 @@ public class Sistema {
                     break;
                 case 2:
                     System.out.println("Lista especialistas:");
-                    listarEspecialistas();
+                    listarEspecialistas(0);
                     System.out.println("Ingrese la id el especialista a eliminar:");
                     int mIdB = input.nextInt();
                     Especialista espeB = new Especialista();
@@ -171,7 +172,7 @@ public class Sistema {
                     }
                 case 3:
                     System.out.println("Lista especialistas:");
-                    listarEspecialistas();
+                    listarEspecialistas(0);
                     System.out.println("Ingrese la id del especialista a modificar:");
                     int mIdM = input.nextInt();
                     Especialista espeM = new Especialista();
@@ -181,7 +182,7 @@ public class Sistema {
                     String mApellidoM = input.next();
                     System.out.println("Ingrese la nueva edad");
                     int mEdadM = input.nextInt();
-                    listarEspecialidades();
+                    listarEspecialidades(0);
                     System.out.println("Ingrese la id de la nueva especialidad");
                     int idEspecialidadM = input.nextInt();
                     if (espeM.modificarEspecialista(new Especialista(mIdM, mNombreM, mApellidoM, mEdadM, idEspecialidadM))) {
@@ -194,7 +195,7 @@ public class Sistema {
 
                 case 4:
                     System.out.println("Lista especialistas:");
-                    listarEspecialistas();
+                    listarEspecialistas(0);
                     break;
                 case 5:
                     opcion = -1;
@@ -238,7 +239,7 @@ public class Sistema {
                     break;
                 case 2:
                     System.out.println("Lista seguros:");
-                    listarSeguros();
+                    listarSeguros(0);
                     System.out.println("Ingrese la id del seguro a eliminar:");
                     int mIdB = input.nextInt();
                     Seguro segB = new Seguro();
@@ -250,7 +251,7 @@ public class Sistema {
                     break;
                 case 3:
                     System.out.println("Lista seguros:");
-                    listarSeguros();
+                    listarSeguros(0);
                     System.out.println("Ingrese la id del seguro a modificar:");
                     int mIdM = input.nextInt();
                     Seguro segM = new Seguro();
@@ -258,7 +259,7 @@ public class Sistema {
                     String mTipoM = input.next();
                     System.out.println("Ingrese el nuevo tope de visitas mensual");
                     int mTopeVM = input.nextInt();
-                    listarSeguros();
+                    listarSeguros(0);
 
                     if (segM.modificarSeguro(new Seguro(mIdM, mTipoM,mTopeVM ))) {
                         System.out.println("Seguro modificada con éxito!");
@@ -271,7 +272,7 @@ public class Sistema {
 
                 case 4:
                     System.out.println("Lista seguros:");
-                    listarSeguros();
+                    listarSeguros(0);
                     break;
                 case 5:
                     opcion = -1;
@@ -312,7 +313,7 @@ public class Sistema {
                     break;
                 case 2:
                     System.out.println("Lista empresas:");
-                    listarEmpresas();
+                    listarEmpresas(0);
                     System.out.println("Ingrese la id de la empresa a eliminar:");
                     int mIdB = input.nextInt();
                     Empresa emprB = new Empresa();
@@ -325,7 +326,7 @@ public class Sistema {
                     break;
                 case 3:
                     System.out.println("Lista empresas:");
-                    listarEmpresas();
+                    listarEmpresas(0);
                     System.out.println("Ingrese la id de la empresa a modificar:");
                     int mIdM = input.nextInt();
                     System.out.println("Ingrese el nuevo nombre");
@@ -342,7 +343,7 @@ public class Sistema {
 
                 case 4:
                     System.out.println("Lista empresas:");
-                    listarEmpresas();
+                    listarEmpresas(0);
                     break;
                 case 5:
                     opcion = -1;
@@ -378,7 +379,7 @@ public class Sistema {
                     String mApellido = input.next();
                     System.out.println("Ingrese la edad: ");
                     int mEdad = input.nextInt();
-                    listarEmpresas();
+                    listarEmpresas(0);
                     System.out.println("Ingrese la id de la empresa: ");
                     int mEmpresaId = input.nextInt();
                     Usuario usu = new Usuario();
@@ -390,7 +391,7 @@ public class Sistema {
                     break;
                 case 2:
                     System.out.println("Lista empleados:");
-                    listarEmpleadosEmpresa();
+                    listarEmpleadosEmpresa(0);
                     System.out.println("Ingrese la id del empleado a eliminar:");
                     int mIdB = input.nextInt();
                     Usuario usuB = new Usuario();
@@ -405,7 +406,7 @@ public class Sistema {
                     }
                 case 3:
                     System.out.println("Lista empleados:");
-                    listarEmpleadosEmpresa();
+                    listarEmpleadosEmpresa(0);
                     System.out.println("Ingrese la id del empleado a modificar:");
                     int mIdM = input.nextInt();
                     Usuario usuM = new Usuario();
@@ -415,7 +416,7 @@ public class Sistema {
                     String mApellidoM = input.next();
                     System.out.println("Ingrese la nueva edad");
                     int mEdadM = input.nextInt();
-                    listarEmpresas();
+                    listarEmpresas(0);
                     System.out.println("Ingrese la id de la nueva empresa");
                     int idEmpresaM = input.nextInt();
                     if (usuM.modificarUsuario(new Usuario(mIdM, mNombreM, mApellidoM, mEdadM, idEmpresaM))) {
@@ -428,7 +429,7 @@ public class Sistema {
 
                 case 4:
                     System.out.println("Lista empleados:");
-                    listarEmpleadosEmpresa();
+                    listarEmpleadosEmpresa(0);
                     break;
                 case 5:
                     opcion = -1;
@@ -442,38 +443,63 @@ public class Sistema {
     }
 
     /*Listas */
-    public static void listarEspecialidades(){
+    public static void listarEspecialidades(int pos){
         Especialidad esp = new Especialidad();
-        for(Especialidad especialidad : esp.getListaEspecialidades()){
-            System.out.println("Id: " + especialidad.getId() + ". Nombre: " + especialidad.getNombre());
+        List<Especialidad> listaEspecialidades = esp.getListaEspecialidades();
+        if(pos >= listaEspecialidades.size()){
+            return;
+        }
+        else {
+            System.out.println("Id: " + listaEspecialidades.get(pos).getId() + ". Nombre: " + listaEspecialidades.get(pos).getNombre());
+            listarEspecialidades(pos+1);
         }
     }
 
-    public static void listarEspecialistas(){
+    public static void listarEspecialistas(int pos){
         Especialista espe = new Especialista();
-        for (Especialista especialista: espe.getListaEspecialistas()) {
-            System.out.println("Id: " + especialista.getId() + ". Nombre: " + especialista.getNombre() + ". Apellido: " + especialista.getApellido() + ". Especialidad: " + especialista.getEspecialidad().getNombre());
+        List<Especialista> listaEspecialistas = espe.getListaEspecialistas();
+        if(pos >= listaEspecialistas.size()){
+            return;
+        }
+        else {
+            System.out.println("Id: " + listaEspecialistas.get(pos).getId() + ". Nombre: " + listaEspecialistas.get(pos).getNombre() + ". Apellido: " + listaEspecialistas.get(pos).getApellido() + ". Especialidad: " + listaEspecialistas.get(pos).getEspecialidad().getNombre());
+            listarEspecialistas(pos+1);
         }
     }
 
-    public static void listarSeguros(){
+    public static void listarSeguros(int pos){
         Seguro seg = new Seguro();
-        for (Seguro seguro : seg.getListaSeguros()) {
-            System.out.println("Id: " + seguro.getId() + ". Tipo: " + seguro.getTipo() + ". Tope de visitas mensuales: "+ seguro.getTopeVisitasMensuales());
+        List<Seguro> listaSeguros = seg.getListaSeguros();
+        if(pos >= listaSeguros.size()){
+            return;
+        }
+        else{
+            System.out.println("Id: " + listaSeguros.get(pos).getId() + ". Tipo: " + listaSeguros.get(pos).getTipo() + ". Tope de visitas mensuales: "+ listaSeguros.get(pos).getTopeVisitasMensuales());
+            listarSeguros(pos+1);
         }
  }
 
-    public static void listarEmpresas(){
+    public static void listarEmpresas(int pos){
         Empresa empr = new Empresa();
-        for (Empresa empresa: empr.getListaEmpresas()) {
-            System.out.println("Id: " + empresa.getId() + ". Nombre: " + empresa.getNombre());
+        List<Empresa> listaEmpresas = empr.getListaEmpresas();
+        if(pos >= listaEmpresas.size()){
+            return;
+        }
+        else{
+            System.out.println("Id: " + listaEmpresas.get(pos).getId() + ". Nombre: " + listaEmpresas.get(pos).getNombre());
+            listarEmpresas(pos+1);
         }
     }
 
-    public static void listarEmpleadosEmpresa(){
+    public static void listarEmpleadosEmpresa(int pos){
         Usuario usu = new Usuario();
-        for (Usuario usuario : usu.getListaUsuarios()) {
-            System.out.println("Id: " + usuario.getId() + ". Nombre: " + usuario.getNombre() + ". Apellido: " + usuario.getApellido() + ". Empresa: " + usuario.getEmpresa().getNombre());
+        List<Usuario> listaUsuarios = usu.getListaUsuarios();
+        if(pos >= listaUsuarios.size()){
+            return;
+        }
+        else{
+            System.out.println("Id: " + listaUsuarios.get(pos).getId() + ". Nombre: " + listaUsuarios.get(pos).getNombre() + ". Apellido: " + listaUsuarios.get(pos).getApellido() + ". Empresa: " + listaUsuarios.get(pos).getEmpresa().getNombre());
+            listarEmpleadosEmpresa(pos+1);
         }
     }
 }
