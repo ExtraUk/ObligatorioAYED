@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +8,7 @@ public class Consulta {
     private int id;
     private Persona persona;
     private Especialista especialista;
-    private LocalDateTime fechaHora;
+    private LocalDate fechaHora;
     private Empresa empresa;
 
     public Empresa getEmpresa() {
@@ -44,11 +45,11 @@ public class Consulta {
         this.especialista = especialista;
     }
 
-    public LocalDateTime getFechaHora() {
+    public LocalDate getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(LocalDateTime fechaHora) {
+    public void setFechaHora(LocalDate fechaHora) {
         this.fechaHora = fechaHora;
     }
 
@@ -197,7 +198,7 @@ public class Consulta {
         return false;
     }
 
-    public Consulta(int id, Persona persona, Especialista especialista, LocalDateTime fechaHora, Empresa empresa) {
+    public Consulta(int id, Persona persona, Especialista especialista, LocalDate fechaHora, Empresa empresa) {
         this.id = id;
         this.persona = persona;
         this.especialista = especialista;
@@ -205,7 +206,7 @@ public class Consulta {
         this.empresa = empresa;
     }
 
-    public Consulta(int id, int idPersona, int idEspecialista, LocalDateTime fechaHora, int idEmpresa) {
+    public Consulta(int id, int idPersona, int idEspecialista, LocalDate fechaHora, int idEmpresa) {
         this.id = id;
         this.fechaHora = fechaHora;
         Especialista especialistaB = new Especialista(idEspecialista);
@@ -223,6 +224,8 @@ public class Consulta {
         Empresa empresa = new Empresa(idEmpresa);
         this.empresa = empresa.buscarEmpresa(empresa);
 
+    }
 
+    public Consulta() {
     }
 }

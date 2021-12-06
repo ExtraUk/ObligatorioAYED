@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,6 +15,12 @@ public class Sistema {
 
         Usuario usuario = new Usuario(1,"Juanita","Perez", 22,1 );
         usuario.altaUsuario(usuario);
+
+        Especialidad especialidad = new Especialidad(1, "Dentista");
+        especialidad.altaEspecialidad(especialidad);
+
+        Especialista especialista = new Especialista(1,"Juanita","Perez", 22,1 );
+        especialista.altaEspecialista(especialista);
 
         Familiar familiar = new Familiar(2,"Juanita","Perez", 22,1, true);
         usuario.altaFamiliar(familiar);
@@ -576,18 +584,28 @@ public class Sistema {
                 case 1:
                     System.out.println("Ingrese la id de la consulta:");
                     int mId = input.nextInt();
-                    System.out.println("Ingrese el tipo:");
-                    String mTipo = input.next();
-                    System.out.println("Ingrese el tope visitas mensuales:");
-                    int mtopeVisitasM = input.nextInt();
+                    System.out.println("Ingrese la id de la persona: ");
+                    int mIdPersona = input.nextInt();
+                    System.out.println("Ingrese la id de la empresa:");
+                    int mIdEmpresa = input.nextInt();
+                    System.out.println("Ingrese la id del especialista:");
+                    int mIdEspecialista = input.nextInt();
+                    System.out.println("Ingrese la fecha y hora [dd. MMM. yyyy]:");
 
-                    Seguro seg = new Seguro();
-                    if(seg.altaSeguro(new Seguro(mId, mTipo, mtopeVisitasM))) {
-                        System.out.println("Seguro agregado con éxito!");
+
+                    String mFecha = input.nextLine();
+                    DateTimeFormatter dtfmFecha = DateTimeFormatter.ofPattern("dd. MMM. yyyy");
+                    LocalDate fecha = LocalDate.parse(mFecha, dtfmFecha);
+
+                    Consulta con = new Consulta();
+                    if(con.altaConsulta(new Consulta(mId, mIdPersona, mIdEspecialista, fecha, mIdEmpresa))){
+                        System.out.println("Consulta agregada con éxito!");
                         break;
                     }
-                    System.out.println("¡No se ha podido agregar el seguro! Compruebe que no existe e intente otra vez");
+
+                    System.out.println("¡No se ha podido agregar la consulta! Compruebe que no existe e intente otra vez");
                     break;
+
                 case 2:
                     System.out.println("Lista seguros:");
                     listarSeguros(0);
