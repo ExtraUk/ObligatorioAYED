@@ -2,12 +2,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.time.LocalDate;
 
 public class Consulta {
     private int id;
     private Persona persona;
     private Especialista especialista;
-    private LocalDateTime fechaHora;
+    private LocalDate fechaHora;
     private Empresa empresa;
 
     public Empresa getEmpresa() {
@@ -44,11 +45,11 @@ public class Consulta {
         this.especialista = especialista;
     }
 
-    public LocalDateTime getFechaHora() {
+    public LocalDate getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(LocalDateTime fechaHora) {
+    public void setFechaHora(LocalDate fechaHora) {
         this.fechaHora = fechaHora;
     }
 
