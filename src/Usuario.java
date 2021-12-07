@@ -140,12 +140,14 @@ public class Usuario extends Persona{
 
     public boolean bajaUsuario(Usuario pUsuario){
         if(existeUsuario(pUsuario, 0)){
-            listaUsuarios.remove(pUsuario);
+            Usuario usu = this.buscarUsuario(pUsuario);
+            listaUsuarios.remove(usu);
             pUsuario.getEmpresa().eliminarEmpleado(pUsuario);
             return true;
         }
         return false;
     }
+
 
     public boolean modificarUsuario(Usuario pUsuario){
         int emp = buscarIndiceUsuario(pUsuario, 0);

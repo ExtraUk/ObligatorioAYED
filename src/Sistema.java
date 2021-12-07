@@ -11,27 +11,37 @@ public class Sistema {
         //Datos precargados
         Empresa empresa = new Empresa(1, "SsISRL");
         empresa.altaEmpresa(empresa);
+        Empresa empresa2 = new Empresa(2, "OOISRL");
+        empresa.altaEmpresa(empresa2);
 
-        Usuario usuario = new Usuario(1,"Juanita","Perez", 22,1 );
+        Usuario usuario = new Usuario(1,"Juanita","Perez", 45,1 );
         usuario.altaUsuario(usuario);
+        Usuario usuario2 = new Usuario(2,"Juanito","Perez", 30,1 );
+        usuario.altaUsuario(usuario2);
+        Usuario usuario3 = new Usuario(3,"Susana","Perez", 45,1 );
+        usuario.altaUsuario(usuario3);
 
         Especialidad especialidad = new Especialidad(1, "Dentista");
         especialidad.altaEspecialidad(especialidad);
+        Especialidad especialidad2 = new Especialidad(2, "Reumatología");
+        especialidad.altaEspecialidad(especialidad2);
 
-        Especialista especialista = new Especialista(1,"Juanita","Perez", 22,1 );
+        Especialista especialista = new Especialista(1,"Juanita","Perez", 45,1 );
         especialista.altaEspecialista(especialista);
+        Especialista especialista2 = new Especialista(2,"Juanito","Perez", 30,2 );
+        especialista.altaEspecialista(especialista2);
 
-        Familiar familiar = new Familiar(2,"Juanita","Perez", 22,1, true);
+        Familiar familiar = new Familiar(2,"Michael","Perez", 22,1, true);
         usuario.altaFamiliar(familiar);
 
-        Seguro seguro = new Seguro(1, "Medico Parcial", 1);
+        Seguro seguro = new Seguro(1, "Medico Parcial", 5);
         seguro.altaSeguro(seguro);
 
         empresa.asignarSeguro(seguro.getId());
 
         Consulta con = new Consulta();
         LocalDate fecha = LocalDate.parse("2021-12-25");
-        con.altaConsulta(new Consulta(1, 1, 1, fecha, 1, true));
+        con.altaConsulta(new Consulta(1, 1, 2, fecha, 1, true));
 
         mostrarMenuPrincipal();
 
@@ -136,14 +146,13 @@ public class Sistema {
                     listarEspecialidades(0);
                     System.out.println("Ingrese la id de la especialidad a modificar:");
                     int mIdM = input.nextInt();
+                    System.out.println("Ingrese el nombre de la especialidad a modificar:");
+                    String mNombreM = input.next();
                     Especialidad espM = new Especialidad();
-                    if(espM.existeEspecialidad(new Especialidad(mIdM))) {
-                        String mNombreM = input.next();
                         if (espM.modificarEspecialidad(new Especialidad(mIdM, mNombreM))) {
                             System.out.println("Especialidad modificada con éxito!");
                             break;
                         }
-                    }
 
                     System.out.println("Esa especialidad no existe!");
                     break;
@@ -299,7 +308,6 @@ public class Sistema {
                     String mTipoM = input.next();
                     System.out.println("Ingrese el nuevo tope de visitas mensual");
                     int mTopeVM = input.nextInt();
-                    listarSeguros(0);
 
                     if (segM.modificarSeguro(new Seguro(mIdM, mTipoM,mTopeVM ))) {
                         System.out.println("Seguro modificada con éxito!");

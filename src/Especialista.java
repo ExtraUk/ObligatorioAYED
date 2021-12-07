@@ -90,7 +90,8 @@ public class Especialista extends Persona{
 
     public boolean bajaEspecialista(Especialista especialista){
         if(existeEspecialista(especialista, 0)){
-            listaEspecialistas.remove(especialista);
+            Especialista esp = this.buscarEspecialista(especialista, 0);
+            listaEspecialistas.remove(esp);
             return true;
         }
         else{
