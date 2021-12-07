@@ -19,7 +19,7 @@ public class Consulta {
         this.empresa = empresa;
     }
 
-    private List<Consulta> listaConsultas = new ArrayList<Consulta>();
+    private static List<Consulta> listaConsultas = new ArrayList<Consulta>();
 
     public int getId() {
         return id;
@@ -51,6 +51,10 @@ public class Consulta {
 
     public void setFechaHora(LocalDate fechaHora) {
         this.fechaHora = fechaHora;
+    }
+
+    public static List<Consulta> getListaConsultas() {
+        return listaConsultas;
     }
 
     public boolean existeConsulta(Consulta pConsulta){
@@ -92,7 +96,7 @@ public class Consulta {
         return buscarIndiceConsulta(pConsulta, pos + 1);
     }
 
-    private int topeVisitasUser(Consulta pConsulta){
+    /*private int topeVisitasUser(Consulta pConsulta){
         int maximoUser = 0;
         for(Seguro seguro : empresa.getListaSeguros()){
             for(Usuario user : empresa.getListaEmpleados()){
@@ -103,12 +107,12 @@ public class Consulta {
             }
         }
         return -1;
-    }
+    }*/
 
     private int esUserOFamiliar(Consulta pConsulta){ // retorna 1 si es usuario, 0 si es familiar o -1 si no es ninguno
-        if(pConsulta.persona.getClass().equals(Usuario.class.getClass()))
+        if(pConsulta.persona.getClass().equals(Usuario.class))
             return 1;
-        else if(pConsulta.persona.getClass().equals(Familiar.class.getClass()))
+        else if(pConsulta.persona.getClass().equals(Familiar.class))
             return 0;
 
         return -1;
@@ -116,7 +120,7 @@ public class Consulta {
 
     public boolean altaConsulta(Consulta pConsulta){
         if(!existeConsulta(pConsulta)){
-            int maximoUser = topeVisitasUser(pConsulta);
+            int maximoUser = pConsulta.empresa.getSeguroEmpresa().getTopeVisitasMensuales();//topeVisitasUser(pConsulta);
             if(maximoUser < 1) return false;
             else {
 
@@ -174,6 +178,7 @@ public class Consulta {
                     }
                 }
                 listaConsultas.add(pConsulta);
+                pConsulta.getPersona().agregarConsulta(pConsulta, esUserOFamiliar(pConsulta));
                 return true;
             }
         }
@@ -206,14 +211,13 @@ public class Consulta {
         this.empresa = empresa;
     }
 
-    public Consulta(int id, int idPersona, int idEspecialista, LocalDate fechaHora, int idEmpresa) {
+    public Consulta(int id, int idPersona, int idEspecialista, LocalDate fechaHora, int idEmpresa, boolean bool) {
         this.id = id;
         this.fechaHora = fechaHora;
         Especialista especialistaB = new Especialista(idEspecialista);
-        this.especialista = especialista.buscarEspecialista(especialistaB, 0);
+        this.especialista = especialistaB.buscarEspecialista(especialistaB, 0);
 
-        Persona persona = new Persona(idPersona);
-        if(persona.getClass() == Usuario.class){
+        if(bool){
             Usuario usuario = new Usuario(idPersona);
             this.persona = usuario.buscarUsuario(usuario, 0);
         } else{
@@ -227,5 +231,10 @@ public class Consulta {
     }
 
     public Consulta() {
+    }
+
+    @Override
+    public String toString() {
+        return "Id: " + id + ", Fecha:" + fechaHora + ", Persona:" + persona.getNombre() + " " + persona.getApellido() + ", Especialista: " + especialista.getNombre() + " " + especialista.getApellido() + ", Empresa: " + empresa.getNombre();
     }
 }

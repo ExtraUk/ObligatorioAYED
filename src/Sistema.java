@@ -7,9 +7,6 @@ import java.util.Scanner;
 public class Sistema {
 
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
-        mostrarMenuPrincipal();
-
 
         //Datos precargados
         Empresa empresa = new Empresa(1, "SsISRL");
@@ -27,8 +24,16 @@ public class Sistema {
         Familiar familiar = new Familiar(2,"Juanita","Perez", 22,1, true);
         usuario.altaFamiliar(familiar);
 
-        Seguro seguro = new Seguro(1, "Medico Parcial", 10);
+        Seguro seguro = new Seguro(1, "Medico Parcial", 1);
         seguro.altaSeguro(seguro);
+
+        empresa.asignarSeguro(seguro.getId());
+
+        Consulta con = new Consulta();
+        LocalDate fecha = LocalDate.parse("2021-12-25");
+        con.altaConsulta(new Consulta(1, 1, 1, fecha, 1, true));
+
+        mostrarMenuPrincipal();
 
     }
 
@@ -37,7 +42,7 @@ public class Sistema {
         int opcion = 1;
         do {
             System.out.println(java.time.LocalDateTime.now());
-            System.out.println("ꕥ\t Mutualista Juanpi Torrico (provisional)\t ꕥ");
+            System.out.println("ꕥ\t Mutualista\t ꕥ");
             System.out.println("Opciones:");
             System.out.println("1- Gestión Especialidades");
             System.out.println("2- Gestión Especialistas");
@@ -46,7 +51,8 @@ public class Sistema {
             System.out.println("5- Gestión Empleados de las Empresas");
             System.out.println("6- Gestión Familiares de los Empleados");
             System.out.println("7- Gestión de las Consultas");
-            System.out.println("8- Salir");
+            System.out.println("8- Gestión de los Listados");
+            System.out.println("9- Salir");
 
             opcion = input.nextInt();
 
@@ -328,7 +334,8 @@ public class Sistema {
             System.out.println("2- Eliminar empresa");
             System.out.println("3- Modificar empresa");
             System.out.println("4- Listar empresas");
-            System.out.println("5- Volver");
+            System.out.println("5- Asignarle un Seguro a la Empresa");
+            System.out.println("6- Volver");
 
             opcion = input.nextInt();
 
@@ -380,6 +387,19 @@ public class Sistema {
                     listarEmpresas(0);
                     break;
                 case 5:
+                    System.out.println("Ingrese la id de la empresa:");
+                    int eId = input.nextInt();
+                    System.out.println("Ingrese la id del seguro a asignar:");
+                    int sId = input.nextInt();
+                    Empresa empre = new Empresa(eId);
+                    Empresa empresa = empre.buscarEmpresa(empre);
+                    if(empresa.asignarSeguro(sId)){
+                        System.out.println("Seguro asignado con éxito!");
+                        break;
+                    }
+                    System.out.println("¡No se ha podido asignar el seguro!");
+                    break;
+                case 6:
                     opcion = -1;
                     break;
                 default:
@@ -450,10 +470,7 @@ public class Sistema {
                     String mApellidoM = input.next();
                     System.out.println("Ingrese la nueva edad");
                     int mEdadM = input.nextInt();
-                    listarEmpresas(0);
-                    System.out.println("Ingrese la id de la nueva empresa");
-                    int idEmpresaM = input.nextInt();
-                    if (usuM.modificarUsuario(new Usuario(mIdM, mNombreM, mApellidoM, mEdadM, idEmpresaM))) {
+                    if (usuM.modificarUsuario(new Usuario(mIdM, mNombreM, mApellidoM, mEdadM))) {
                         System.out.println("Empleado modificado con éxito!");
                         break;
                     }
@@ -483,9 +500,8 @@ public class Sistema {
             System.out.println("ꕥ Gestión Familiares de las Empleados ꕥ");
             System.out.println("1- Agregar familiares a un empleado");
             System.out.println("2- Eliminar familiares a un empleado");
-            System.out.println("3- Modificar familiares a un empleado");
-            System.out.println("4- Listar familiares de un empleado");
-            System.out.println("5- Volver");
+            System.out.println("3- Listar familiares de un empleado");
+            System.out.println("4- Volver");
 
             opcion = input.nextInt();
 
@@ -508,9 +524,10 @@ public class Sistema {
                     }
                     System.out.println("Ingrese la id del usuario a Cargo: ");
                     int mUsuarioId = input.nextInt();
-                    Usuario usu = new Usuario();
+                    Usuario usu = new Usuario(mUsuarioId);
+                    Usuario usuario = usu.buscarUsuario(usu);
 
-                    if(usu.altaFamiliar(new Familiar(mId, mNombre, mApellido, mEdad, mUsuarioId, esMayor ))) {
+                    if(usuario.altaFamiliar(new Familiar(mId, mNombre, mApellido, mEdad, mUsuarioId, esMayor ))) {
                         System.out.println("Familiar agregado con éxito!");
                         break;
                     }
@@ -519,46 +536,35 @@ public class Sistema {
                 case 2:
                     System.out.println("Lista empleados:");
                     listarEmpleadosEmpresa(0);
-                    System.out.println("Ingrese la id del empleado a eliminar:");
+                    System.out.println("Ingrese la id del empleado con familiar a eliminar:");
                     int mIdB = input.nextInt();
-                    Usuario usuB = new Usuario();
+                    Usuario bUsu = new Usuario(mIdB);
+                    Usuario bUsuario = bUsu.buscarUsuario(bUsu);
 
-                    if(usuB.bajaUsuario( new Usuario(mIdB))){
-                        System.out.println("Empleado eliminado con éxito!");
+                    System.out.println("Ingrese la id del familiar a eliminar:");
+                    int mIdF = input.nextInt();
+                    Familiar familiar = bUsuario.buscarFamiliar(new Familiar(mIdF));
+
+                    if(bUsuario.bajaFamiliar(familiar)){
+                        System.out.println("Familiar eliminado con éxito!");
                         break;
                     }
                     else{
-                        System.out.println("No se pudo eliminar el empleado");
+                        System.out.println("No se pudo eliminar el familiar");
                         break;
                     }
                 case 3:
                     System.out.println("Lista empleados:");
                     listarEmpleadosEmpresa(0);
-                    System.out.println("Ingrese la id del empleado a modificar:");
-                    int mIdM = input.nextInt();
-                    Usuario usuM = new Usuario();
-                    System.out.println("Ingrese el nuevo nombre");
-                    String mNombreM = input.next();
-                    System.out.println("Ingrese el nuevo apellido");
-                    String mApellidoM = input.next();
-                    System.out.println("Ingrese la nueva edad");
-                    int mEdadM = input.nextInt();
-                    listarEmpresas(0);
-                    System.out.println("Ingrese la id de la nueva empresa");
-                    int idEmpresaM = input.nextInt();
-                    if (usuM.modificarUsuario(new Usuario(mIdM, mNombreM, mApellidoM, mEdadM, idEmpresaM))) {
-                        System.out.println("Empleado modificado con éxito!");
-                        break;
+                    System.out.println("Ingrese la id del empleado:");
+                    int idE = input.nextInt();
+                    Usuario cUsu = new Usuario(idE);
+                    Usuario cUsuario = cUsu.buscarUsuario(cUsu);
+                    if(cUsuario != null) {
+                        listarFamiliares(cUsuario, 0);
                     }
-
-                    System.out.println("¡El empleado no existe!");
                     break;
-
                 case 4:
-                    System.out.println("Lista empleados:");
-                    listarEmpleadosEmpresa(0);
-                    break;
-                case 5:
                     opcion = -1;
                     break;
                 default:
@@ -575,10 +581,8 @@ public class Sistema {
         do {
             System.out.println("ꕥ Gestión Consultas ꕥ");
             System.out.println("1- Agregar consulta");
-            System.out.println("2- Eliminar consulta");
-            System.out.println("3- Modificar consulta");
-            System.out.println("4- Listar consultas");
-            System.out.println("5- Volver");
+            System.out.println("2- Listar consultas");
+            System.out.println("3- Volver");
 
             opcion = input.nextInt();
 
@@ -588,6 +592,12 @@ public class Sistema {
                     int mId = input.nextInt();
                     System.out.println("Ingrese la id de la persona: ");
                     int mIdPersona = input.nextInt();
+                    System.out.println("La persona es un empleado? (Responder 'si' o 'no')");
+                    String personaEmpOFam = input.next();
+                    boolean bool = false;
+                    if(personaEmpOFam.equalsIgnoreCase("si")){
+                        bool = true;
+                    }
                     System.out.println("Ingrese la id de la empresa:");
                     int mIdEmpresa = input.nextInt();
                     System.out.println("Ingrese la id del especialista:");
@@ -595,52 +605,18 @@ public class Sistema {
                     System.out.println("Ingrese la fecha [yyyy-mm-dd]:");
                     LocalDate fecha = LocalDate.parse(input.next());
                     Consulta con = new Consulta();
-                    if(con.altaConsulta(new Consulta(mId, mIdPersona, mIdEspecialista, fecha, mIdEmpresa))){
+                    if(con.altaConsulta(new Consulta(mId, mIdPersona, mIdEspecialista, fecha, mIdEmpresa, bool))){
                         System.out.println("Consulta agregada con éxito!");
                         break;
                     }
 
                     System.out.println("¡No se ha podido agregar la consulta! Compruebe que no existe e intente otra vez");
                     break;
-
                 case 2:
-                    System.out.println("Lista seguros:");
-                    listarSeguros(0);
-                    System.out.println("Ingrese la id del seguro a eliminar:");
-                    int mIdB = input.nextInt();
-                    Seguro segB = new Seguro();
-                    if(segB.bajaSeguro(new Seguro(mIdB))){
-                        System.out.println("Seguro eliminado con éxito!");
-                        break;
-                    }
-                    System.out.println("¡No se ha podido eliminar el seguro! Compruebe que existe e intente otra vez");
+                    System.out.println("Lista Consultas:");
+                    listarConsultas(0);
                     break;
                 case 3:
-                    System.out.println("Lista seguros:");
-                    listarSeguros(0);
-                    System.out.println("Ingrese la id del seguro a modificar:");
-                    int mIdM = input.nextInt();
-                    Seguro segM = new Seguro();
-                    System.out.println("Ingrese el nuevo tipo");
-                    String mTipoM = input.next();
-                    System.out.println("Ingrese el nuevo tope de visitas mensual");
-                    int mTopeVM = input.nextInt();
-                    listarSeguros(0);
-
-                    if (segM.modificarSeguro(new Seguro(mIdM, mTipoM,mTopeVM ))) {
-                        System.out.println("Seguro modificada con éxito!");
-                        break;
-                    }
-
-                    System.out.println("¡El seguro no existe!");
-                    break;
-
-
-                case 4:
-                    System.out.println("Lista seguros:");
-                    listarSeguros(0);
-                    break;
-                case 5:
                     opcion = -1;
                     break;
                 default:
@@ -666,13 +642,48 @@ public class Sistema {
 
             switch(opcion){
                 case 1:
+                    System.out.println("Lista empresas:");
+                    listarEmpresas(0);
+                    System.out.println("Ingrese la id de la empresa:");
+                    int idM = input.nextInt();
+                    Empresa emp = new Empresa(idM);
+                    Empresa aEmpresa = emp.buscarEmpresa(emp);
+                    if(aEmpresa != null){
+                        aEmpresa.listarEmpleados(0);
+                    }
                     break;
                 case 2:
+                    System.out.println("Ingrese la id de la persona");
+                    int idP = input.nextInt();
+                    System.out.println("La persona es un empleado? (Responder 'si' o 'no')");
+                    String personaEmpOFam = input.next();
+                    boolean bool = false;
+                    if(personaEmpOFam.equalsIgnoreCase("si")){
+                        bool = true;
+                    }
+                    System.out.println("Ingrese la primer fecha [yyyy-mm-dd]");
+                    LocalDate fecha = LocalDate.parse(input.next());
+                    System.out.println("Ingrese la segunda fecha [yyyy-mm-dd]");
+                    LocalDate fecha2 = LocalDate.parse(input.next());
+                    if(bool){
+                        Usuario usu = new Usuario(idP);
+                        usu.buscarUsuario(usu).todasLasConsultasEnRangoDeFechas(fecha, fecha2, 0);
+                    }
                     break;
                 case 3:
+                    System.out.println("Lista empleados:");
+                    listarEmpleadosEmpresa(0);
+                    System.out.println("Ingrese la id del empleado:");
+                    int idE = input.nextInt();
+                    Usuario cUsu = new Usuario(idE);
+                    Usuario cUsuario = cUsu.buscarUsuario(cUsu);
+                    if(cUsuario != null) {
+                        listarFamiliares(cUsuario, 0);
+                    }
                     break;
 
                 case 4:
+                    System.out.println("No entendimos la letra, para la defensa lo tratamos de hacer");
                     break;
                 case 5:
                     opcion = -1;
@@ -743,6 +754,30 @@ public class Sistema {
         else{
             System.out.println("Id: " + listaUsuarios.get(pos).getId() + ". Nombre: " + listaUsuarios.get(pos).getNombre() + ". Apellido: " + listaUsuarios.get(pos).getApellido() + ". Empresa: " + listaUsuarios.get(pos).getEmpresa().getNombre());
             listarEmpleadosEmpresa(pos+1);
+        }
+    }
+
+    public static void listarFamiliares(Usuario usuario, int pos){
+        List<Familiar> listaFamiliares = usuario.getListaFamiliares();
+        if(pos >= listaFamiliares.size()){
+            return;
+        }
+        else{
+            Familiar familiar = listaFamiliares.get(pos);
+            System.out.println("Id: " + familiar.getId() + ". Nombre: " +familiar.getNombre() + ". Apellido: " + familiar.getApellido());
+            listarFamiliares(usuario, pos+1);
+        }
+    }
+
+    public static void listarConsultas(int pos){
+        Consulta consulta = new Consulta();
+        List<Consulta> listaConsultas = consulta.getListaConsultas();
+        if(pos >= listaConsultas.size()){
+            return;
+        }
+        else{
+            System.out.println(listaConsultas.get(pos).toString());
+            listarConsultas(pos+1);
         }
     }
 }

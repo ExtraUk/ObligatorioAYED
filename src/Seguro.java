@@ -112,7 +112,7 @@ public class Seguro {
 
     //Listar los diferentes tipos de seguro para una empresa y la cantidad de empleados en
     //cada uno.
-    public void listarSegurosDeEmpresaConQtyUsuariosEnCadaUno(Empresa pEmpresa, int pos){
+    /*public void listarSegurosDeEmpresaConQtyUsuariosEnCadaUno(Empresa pEmpresa, int pos){
         if(pos > pEmpresa.getListaSeguros().size()) return;
 
         System.out.println("Seguro: " + pEmpresa.getListaSeguros().get(pos).getTipo());
@@ -126,7 +126,7 @@ public class Seguro {
                 }
             }
         }
-    }
+    }*/
 
     private List<Usuario> usuariosEnUnSeguroEnUnaEmpresa(Empresa pEmpresa, Seguro pSeguro){
         List<Usuario> lista = new ArrayList<Usuario>();

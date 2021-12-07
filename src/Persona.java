@@ -37,29 +37,34 @@ public class Persona {
         return listaConsultas;
     }
 
-    private List<Consulta> todasLasConsultasEnRangoDeFechas(LocalDate fecha1, LocalDate fecha2, int pos, List<Consulta> retorno){
+    public void agregarConsulta(Consulta consulta, int userOFamiliar){
+        if(userOFamiliar == 1){
+            Usuario usu = new Usuario(consulta.getPersona().getId());
+            Usuario usuario = usu.buscarUsuario(usu);
+            usuario.agregarConsulta(consulta, "");
+        }
+        else{
+            Familiar familiar = new Familiar(consulta.getPersona().getId());
+            Familiar familiar1 = familiar.buscarFamiliar(familiar);
+            familiar1.agregarConsulta(consulta, "");
+        }
+    }
+
+    public void agregarConsulta(Consulta consulta){
+        listaConsultas.add(consulta);
+    }
+
+    public void todasLasConsultasEnRangoDeFechas(LocalDate fecha1, LocalDate fecha2, int pos){
         if(pos >= listaConsultas.size()){
-            return null;
+            return;
         }
         else{
 
             if(listaConsultas.get(pos).getFechaHora().isAfter(fecha1) && listaConsultas.get(pos).getFechaHora().isBefore(fecha2)){
-                retorno.add(listaConsultas.get(pos));
+                System.out.println(listaConsultas.get(pos).toString());
             }
-            retorno.addAll(todasLasConsultasEnRangoDeFechas(fecha1, fecha2, pos+1, retorno));
+            todasLasConsultasEnRangoDeFechas(fecha1, fecha2, pos+1);
         }
-        return retorno;
-    }
-
-    public List<Familiar> todaLaFamilia(Usuario usuario){
-        return usuario.getListaFamiliares();
-    }
-
-    public List<Persona> todaLaFamilia(Familiar familiar){
-        List<Persona> retorno = new ArrayList<Persona>();
-        retorno.add(familiar.getUsuarioACargo());
-        retorno.addAll(familiar.getUsuarioACargo().getListaFamiliares());
-        return retorno;
     }
 
     public Persona(int id, String nombre, String apellido, int edad) {

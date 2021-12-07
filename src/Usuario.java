@@ -130,6 +130,7 @@ public class Usuario extends Persona{
     public boolean altaUsuario(Usuario pUsuario){
         if(!existeUsuario(pUsuario, 0)){
             listaUsuarios.add(pUsuario);
+            pUsuario.getEmpresa().agregarEmpleado(pUsuario);
             return true;
         }
         else{
@@ -140,6 +141,7 @@ public class Usuario extends Persona{
     public boolean bajaUsuario(Usuario pUsuario){
         if(existeUsuario(pUsuario, 0)){
             listaUsuarios.remove(pUsuario);
+            pUsuario.getEmpresa().eliminarEmpleado(pUsuario);
             return true;
         }
         return false;
@@ -148,6 +150,7 @@ public class Usuario extends Persona{
     public boolean modificarUsuario(Usuario pUsuario){
         int emp = buscarIndiceUsuario(pUsuario, 0);
         if(emp >= 0){
+            listaUsuarios.get(emp).getEmpresa().actualizarEmpleado(pUsuario);
             listaUsuarios.set(emp, pUsuario);
             return true;
         }
@@ -158,12 +161,14 @@ public class Usuario extends Persona{
         if(familiar.isMayorDeEdad()){
             if(mayoresDeEdad(0) <= 2){
                 listaFamiliares.add(familiar);
+                this.empresa.actualizarEmpleado(this);
                 return true;
             }
         }
         else{
             if(menoresDeEdad(0) <= 4){
                 listaFamiliares.add(familiar);
+                this.empresa.actualizarEmpleado(this);
                 return true;
             }
         }
@@ -174,6 +179,7 @@ public class Usuario extends Persona{
         if(esFamiliar(pFamiliar, 0)){
                Familiar fam = this.buscarFamiliar(pFamiliar, 0);
                this.listaFamiliares.remove(fam);
+                this.empresa.actualizarEmpleado(this);
                return true;
         }
         return false;
@@ -216,6 +222,37 @@ public class Usuario extends Persona{
         }
     }
 
+    public void asignarSeguro(Seguro seguro){
+        this.seguro = seguro;
+        asignarSeguroAFamiliares(seguro, 0);
+        this.empresa.actualizarEmpleado(this);
+    }
+
+    public void asignarSeguroAFamiliares(Seguro seguro, int pos){
+        if(pos >= listaFamiliares.size()){
+            return;
+        }
+        else{
+            listaFamiliares.get(pos).setSeguro(seguro);
+            asignarSeguroAFamiliares(seguro, pos+1);
+        }
+    }
+
+    public void listarFamiliares(int pos){
+        if(pos >= listaFamiliares.size()){
+            return;
+        }
+        else{
+            System.out.println(listaFamiliares.get(pos).toString());
+            listarFamiliares(pos+1);
+        }
+    }
+
+    public void agregarConsulta(Consulta consulta, String s){
+        this.agregarConsulta(consulta);
+        this.empresa.actualizarEmpleado(this);
+    }
+
     public Usuario(int id, String nombre, String apellido, int edad, Empresa empresa) {
         super(id, nombre, apellido, edad);
         this.empresa = empresa;
@@ -227,6 +264,10 @@ public class Usuario extends Persona{
         this.empresa = eEmpresa.buscarEmpresa(new Empresa(idEmpresa));
     }
 
+    public Usuario(int id, String nombre, String apellido, int edad) {
+        super(id, nombre, apellido, edad);
+    }
+
     public Usuario() {
         super();
     }
@@ -235,4 +276,8 @@ public class Usuario extends Persona{
         super(id);
     }
 
+    @Override
+    public String toString() {
+        return "EMPLEADO Id: " + this.getId() + ", Nombre: " + this.getNombre() + ", Apellido: " + this.getApellido();
+    }
 }

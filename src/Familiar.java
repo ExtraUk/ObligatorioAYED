@@ -4,10 +4,19 @@ import java.util.List;
 public class Familiar extends Persona{
     private Usuario usuarioACargo;
     private boolean mayorDeEdad;
+    private Seguro seguro;
     private static List<Familiar> listaFamiliares = new ArrayList<Familiar>();
 
     public Familiar() {
 
+    }
+
+    public Seguro getSeguro() {
+        return seguro;
+    }
+
+    public void setSeguro(Seguro seguro) {
+        this.seguro = seguro;
     }
 
     public List<Familiar> getListaFamiliares(){
@@ -42,6 +51,11 @@ public class Familiar extends Persona{
         }
     }
 
+    public void agregarConsulta(Consulta consulta, String s){
+        this.agregarConsulta(consulta);
+        this.usuarioACargo.modificarFamiliar(this);
+    }
+
     public Familiar(int id, String nombre, String apellido, int edad, Usuario usuarioACargo, boolean mayor) {
         super(id, nombre, apellido, edad);
         this.usuarioACargo = usuarioACargo;
@@ -57,5 +71,10 @@ public class Familiar extends Persona{
 
     public Familiar(int id) {
         super(id);
+    }
+
+    @Override
+    public String toString() {
+        return "FAMILIAR Id: " + this.getId() + ", Nombre: " + this.getNombre() + ", Apellido: " + this.getApellido();
     }
 }

@@ -4,8 +4,8 @@ import java.util.List;
 public class Empresa {
     private int id;
     private String nombre;
-    private List<Usuario> listaUsuarios;
-    private List<Seguro> listaSeguros;
+    private List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+    private Seguro seguroEmpresa;
 
     private static List<Empresa> listaEmpresas = new ArrayList<Empresa>();
 
@@ -27,11 +27,13 @@ public class Empresa {
     public void setListaEmpleados(List<Usuario> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
     }
-    public List<Seguro> getListaSeguros() {
-        return listaSeguros;
+
+    public Seguro getSeguroEmpresa() {
+        return seguroEmpresa;
     }
-    public void setListaSeguros(List<Seguro> listaSeguros) {
-        this.listaSeguros = listaSeguros;
+
+    public void setSeguroEmpresa(Seguro seguroEmpresa) {
+        this.seguroEmpresa = seguroEmpresa;
     }
 
     public static List<Empresa> getListaEmpresas() {
@@ -107,19 +109,71 @@ public class Empresa {
     }
 
     public boolean agregarEmpleado(Usuario pUsuario){
-        for(Empresa empresa : listaEmpresas)
-            for(Usuario usuario : empresa.listaUsuarios)
-                if(pUsuario.getId() == usuario.getId() && !empresa.equals(this))
-                    return false;
-
         listaUsuarios.add(pUsuario);
         return true;
     }
 
     public boolean eliminarEmpleado(Usuario pUsuario){
-        Usuario elUser = pUsuario.buscarUsuario(pUsuario);
-        listaUsuarios.remove(elUser);
+        if(listaUsuarios.remove(pUsuario)) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean actualizarEmpleado(Usuario usuario){
+        int pos = buscarIndiceUsuario(usuario, 0);
+        listaUsuarios.set(pos, usuario);
         return true;
+    }
+
+    public boolean asignarSeguro(int idSeguro){
+        Seguro seg = new Seguro(idSeguro);
+        Seguro seguro = seg.buscarSeguro(seg);
+        if(seguro != null){
+            this.seguroEmpresa = seguro;
+            asignarSeguroAEmpleados(seguro, 0);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public void asignarSeguroAEmpleados(Seguro seguro, int pos){
+        if(pos >= listaUsuarios.size()){
+            return;
+        }
+        else{
+            listaUsuarios.get(pos).asignarSeguro(seguro);
+            asignarSeguroAEmpleados(seguro, pos+1);
+        }
+    }
+
+    public void listarEmpleados(int pos){
+        if(pos >= listaUsuarios.size()){
+            return;
+        }
+        else{
+            System.out.println(listaUsuarios.get(pos).toString());
+            listaUsuarios.get(pos).listarFamiliares(0);
+            listarEmpleados(pos+1);
+        }
+    }
+
+
+
+    public int buscarIndiceUsuario(Usuario pUsuario, int pos){
+        if(pos >= listaUsuarios.size()){
+            return -1;
+        }
+        else if(listaUsuarios.get(pos).getId() == pUsuario.getId()){
+            return pos;
+        }
+        else{
+            return buscarIndiceUsuario(pUsuario, pos+1);
+        }
     }
 
     public Empresa(int id, String nombre) {
