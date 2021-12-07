@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
@@ -8,6 +9,7 @@ public class Sistema {
     public static void main(String[] args) {
         // TODO Auto-generated method stub
         mostrarMenuPrincipal();
+
 
         //Datos precargados
         Empresa empresa = new Empresa(1, "SsISRL");
@@ -34,6 +36,7 @@ public class Sistema {
         Scanner input = new Scanner(System.in);
         int opcion = 1;
         do {
+            System.out.println(java.time.LocalDateTime.now());
             System.out.println("ꕥ\t Mutualista Juanpi Torrico (provisional)\t ꕥ");
             System.out.println("Opciones:");
             System.out.println("1- Gestión Especialidades");
@@ -589,9 +592,8 @@ public class Sistema {
                     int mIdEmpresa = input.nextInt();
                     System.out.println("Ingrese la id del especialista:");
                     int mIdEspecialista = input.nextInt();
-                    System.out.println("Ingrese la fecha y hora [dd. MM. yyyy]:");
+                    System.out.println("Ingrese la fecha [yyyy-mm-dd]:");
                     LocalDate fecha = LocalDate.parse(input.next());
-                    System.out.println(fecha);
                     Consulta con = new Consulta();
                     if(con.altaConsulta(new Consulta(mId, mIdPersona, mIdEspecialista, fecha, mIdEmpresa))){
                         System.out.println("Consulta agregada con éxito!");
