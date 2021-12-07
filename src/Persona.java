@@ -60,7 +60,7 @@ public class Persona {
         }
         else{
 
-            if(listaConsultas.get(pos).getFechaHora().isAfter(fecha1) && listaConsultas.get(pos).getFechaHora().isBefore(fecha2)){
+            if((listaConsultas.get(pos).getFechaHora().isAfter(fecha1) && listaConsultas.get(pos).getFechaHora().isBefore(fecha2)) || listaConsultas.get(pos).getFechaHora().equals(fecha1) || listaConsultas.get(pos).getFechaHora().equals(fecha2)){
                 System.out.println(listaConsultas.get(pos).toString());
             }
             todasLasConsultasEnRangoDeFechas(fecha1, fecha2, pos+1);

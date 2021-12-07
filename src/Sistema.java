@@ -41,7 +41,7 @@ public class Sistema {
 
         Consulta con = new Consulta();
         LocalDate fecha = LocalDate.parse("2021-12-25");
-        con.altaConsulta(new Consulta(1, 1, 2, fecha, 1, true));
+        con.altaConsulta(new Consulta(1, 1, 2, fecha, true));
 
         mostrarMenuPrincipal();
 
@@ -606,14 +606,12 @@ public class Sistema {
                     if(personaEmpOFam.equalsIgnoreCase("si")){
                         bool = true;
                     }
-                    System.out.println("Ingrese la id de la empresa:");
-                    int mIdEmpresa = input.nextInt();
                     System.out.println("Ingrese la id del especialista:");
                     int mIdEspecialista = input.nextInt();
                     System.out.println("Ingrese la fecha [yyyy-mm-dd]:");
                     LocalDate fecha = LocalDate.parse(input.next());
                     Consulta con = new Consulta();
-                    if(con.altaConsulta(new Consulta(mId, mIdPersona, mIdEspecialista, fecha, mIdEmpresa, bool))){
+                    if(con.altaConsulta(new Consulta(mId, mIdPersona, mIdEspecialista, fecha, bool))){
                         System.out.println("Consulta agregada con éxito!");
                         break;
                     }

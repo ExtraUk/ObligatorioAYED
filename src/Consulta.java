@@ -149,7 +149,7 @@ public class Consulta {
                                 Usuario userF = new Usuario().buscarUsuario(((Usuario) pConsulta.persona));
                                 if(qtyConsultas > userF.getSeguro().getTopeVisitasMensuales())
                                     return false;
-                                return true;
+                                break;
                             case 0:
                                 Familiar fam = new Familiar().buscarFamiliar((Familiar) pConsulta.persona);
                                 Usuario userM = fam.getUsuarioACargo();
@@ -171,7 +171,7 @@ public class Consulta {
                                 }
                                 if(qtyConsultas > userM.getSeguro().getTopeVisitasMensuales())
                                     return false;
-                                return true;
+                                break;
                             case -1:
                                 return false;
                         }
@@ -211,22 +211,24 @@ public class Consulta {
         this.empresa = empresa;
     }
 
-    public Consulta(int id, int idPersona, int idEspecialista, LocalDate fechaHora, int idEmpresa, boolean bool) {
+    public Consulta(int id, int idPersona, int idEspecialista, LocalDate fechaHora, boolean bool) {
         this.id = id;
         this.fechaHora = fechaHora;
         Especialista especialistaB = new Especialista(idEspecialista);
         this.especialista = especialistaB.buscarEspecialista(especialistaB, 0);
 
         if(bool){
-            Usuario usuario = new Usuario(idPersona);
-            this.persona = usuario.buscarUsuario(usuario, 0);
+            Usuario usu = new Usuario(idPersona);
+            Usuario usuario = usu.buscarUsuario(usu);
+            this.persona = usuario;
+            this.empresa = usuario.getEmpresa();
         } else{
-            Familiar familiar = new Familiar(idPersona);
-            this.persona = familiar.buscarFamiliar(familiar, 0);
+            Familiar fam = new Familiar(idPersona);
+            Familiar familiar = fam.buscarFamiliar(fam);
+            this.persona = familiar;
+            this.empresa = familiar.getUsuarioACargo().getEmpresa();
         }
 
-        Empresa empresa = new Empresa(idEmpresa);
-        this.empresa = empresa.buscarEmpresa(empresa);
 
     }
 
