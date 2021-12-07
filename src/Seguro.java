@@ -137,6 +137,11 @@ public class Seguro {
         return lista;
     }
 
+    @Override
+    public String toString() {
+        return "SEGURO Id: " + id + ", Tipo: " + tipo + ", Tope Visitas Mensuales: " + topeVisitasMensuales;
+    }
+
     public Seguro(int id, String tipo, int topeVisitasMensuales) {
         this.id = id;
         this.tipo = tipo;

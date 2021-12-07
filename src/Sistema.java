@@ -689,7 +689,13 @@ public class Sistema {
                     break;
 
                 case 4:
-                    System.out.println("No entendimos la letra, para la defensa lo tratamos de hacer");
+                    System.out.println("Lista empresas:");
+                    listarEmpresas(0);
+                    System.out.println("Ingrese la id de la empresa");
+                    int idEmp = input.nextInt();
+                    Empresa dEmp = new Empresa(idEmp);
+                    Empresa empresa = dEmp.buscarEmpresa(dEmp);
+                    empresa.listarSeguroYEmpleados();
                     break;
                 case 5:
                     opcion = -1;

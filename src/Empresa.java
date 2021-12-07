@@ -141,12 +141,24 @@ public class Empresa {
         }
     }
 
+    public boolean asignarSeguro(){
+        if(this.seguroEmpresa != null){
+            asignarSeguroAEmpleados(seguroEmpresa, 0);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     public void asignarSeguroAEmpleados(Seguro seguro, int pos){
         if(pos >= listaUsuarios.size()){
             return;
         }
         else{
-            listaUsuarios.get(pos).asignarSeguro(seguro);
+            Usuario usuario = listaUsuarios.get(pos);
+            usuario.asignarSeguro(seguro);
+            listaUsuarios.set(pos, usuario);
             asignarSeguroAEmpleados(seguro, pos+1);
         }
     }
@@ -160,6 +172,11 @@ public class Empresa {
             listaUsuarios.get(pos).listarFamiliares(0);
             listarEmpleados(pos+1);
         }
+    }
+
+    public void listarSeguroYEmpleados(){
+        System.out.println(seguroEmpresa.toString());
+        listarEmpleados(0);
     }
 
 

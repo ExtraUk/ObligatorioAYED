@@ -131,6 +131,7 @@ public class Usuario extends Persona{
         if(!existeUsuario(pUsuario, 0)){
             listaUsuarios.add(pUsuario);
             pUsuario.getEmpresa().agregarEmpleado(pUsuario);
+            pUsuario.getEmpresa().asignarSeguro();
             return true;
         }
         else{
@@ -229,6 +230,8 @@ public class Usuario extends Persona{
         this.seguro = seguro;
         asignarSeguroAFamiliares(seguro, 0);
         this.empresa.actualizarEmpleado(this);
+        int pos = buscarIndiceUsuario(this);
+        listaUsuarios.set(pos, this);
     }
 
     public void asignarSeguroAFamiliares(Seguro seguro, int pos){
@@ -236,7 +239,9 @@ public class Usuario extends Persona{
             return;
         }
         else{
-            listaFamiliares.get(pos).setSeguro(seguro);
+            Familiar familiar = listaFamiliares.get(pos);
+            familiar.setSeguro(seguro);
+            listaFamiliares.set(pos, familiar);
             asignarSeguroAFamiliares(seguro, pos+1);
         }
     }
